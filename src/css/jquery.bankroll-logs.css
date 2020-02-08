@@ -1,0 +1,123 @@
+/* Log line container */
+.event-terminal-log {
+    color: grey;
+    font-family: Inconsolata, monospace;
+}
+
+/* Date part in a log line */
+.event-terminal-log-date {
+    font-size: 85%;
+}
+
+/* Timestamp part in a log line. Always hidden. Used to refresh the ago date format. */
+.event-terminal-log-timestamp {
+    display: none;
+}
+
+/* Contract name part in a log line */
+.event-terminal-log-contract-name {
+    font-weight: 400;
+    color: white;
+}
+
+/* Contract action part in a log line */
+.event-terminal-log-action {
+    font-family: Nunito, sans-serif;
+    font-size: 75%;
+    font-weight: 700;
+    padding-left: .3em;
+}
+
+/* Wallet address part in a log line */
+.event-terminal-log-wallet-addr {
+    color: rgb(2, 126, 209);
+}
+
+/* A number value displayed in a log line.
+ * Example : Round number in Air FREE ROLL and WIN log
+ */
+.event-terminal-log-value {
+    font-weight: bold;
+}
+
+/* Token amount part in a log line */
+.event-terminal-log-token-amount {
+    font-weight: bold;
+}
+
+/* Transaction id and link to tronscan part in a log line */
+.event-terminal-tronscan-link {
+    font-size: 85%;
+    color: purple;
+}
+
+/* Event terminal main container */
+.event-terminal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Event terminal particle container */
+.event-terminal-particles-js {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    background-image: radial-gradient(#3e0b3f, black 120%);
+}
+
+/* Event terminal logs container */
+.event-terminal-logs {
+    height: calc(100% - 30px);
+    width: 100%;
+    overflow: auto;
+    border-bottom: 3px solid #320933;
+    border-left: 3px solid #320933;
+    border-right: 3px solid #320933;
+}
+
+/* Event terminal command line container */
+.event-terminal-command-line {
+    height: 30px;
+    width: 100%;
+    border: 3px solid #320933;
+    background-color: rgba(50, 9, 51, 0.8);
+    color: white;
+    font-family: Inconsolata, monospace;
+    font-size: 14px;
+}
+
+/* Custom class used in contract configuration.
+ * Class names and style definitions can freely be customized
+ * but should be in sync with class names used in contract definition.
+ */
+.action-buy,
+.token-amount-buy {
+    color: green;
+}
+
+.action-sell,
+.token-amount-sell {
+    color: red;
+}
+
+.action-freeroll,
+.token-amount-freeroll {
+    color: greenyellow;
+}
+
+.action-withdraw,
+.token-amount-withdraw {
+    color: darkred;
+}
+
+.action-transfer,
+.token-amount-transfer {
+    color: orange;
+}
+
+.action-donate,
+.token-amount-donate {
+    color: hotpink;
+}

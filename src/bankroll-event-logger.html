@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <style>
+        /* Style rules for divs where the plugin is applied to. */
+        #logs-with-particles {
+            height: 300px;
+        }
+
+        #logs-without-particles {
+            height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/jquery.bankroll-logs.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"
+        integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/jquery.bankroll-logs.js"></script>
+</head>
+
+<body style="background-color: black;">
+    <h1>Logger with particle</h1>
+    <div id="logs-with-particles"></div>
+    <script>$("#logs-with-particles").bankroll_logs();</script>
+
+    <h1>Logger without particle</h1>
+    <div id="logs-without-particles"></div>
+    <script>$("#logs-without-particles").bankroll_logs({ balanceReportLimit: 5, particles: false });</script>
+</body>
+
+</html>
