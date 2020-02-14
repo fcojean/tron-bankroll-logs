@@ -4,7 +4,7 @@
     <style>
         /* Style rules for divs where the plugin is applied to. */
         #logs-with-particles {
-            height: 300px;
+            height: 100%;
         }
 
         #logs-without-particles {
@@ -27,13 +27,8 @@
 </head>
 
 <body style="background-color: black;">
-    <h1>Logger with particle</h1>
     <div id="logs-with-particles"></div>
     <script>$("#logs-with-particles").bankroll_logs();</script>
-
-    <h1>Logger without particle</h1>
-    <div id="logs-without-particles"></div>
-    <script>$("#logs-without-particles").bankroll_logs({ balanceReportLimit: 5, particles: false });</script>
 </body>
 
 </html>

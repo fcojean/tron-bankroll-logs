@@ -494,6 +494,65 @@
                     "hide": true
                 }
             }
+        },
+        "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK": {
+            "name": "BNKR",
+            "fetchUrl": "https://api.tronex.io/events/TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK",
+            "events": {
+                "Mint": {
+                    "action": {
+                        "name": "MINING",
+                        "class": "action-mining"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "0"
+                        },
+                        {
+                            "type": "string",
+                            "content": "mined"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "1",
+                            "class": "token-amount-mining",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "MintFinished": {
+                    "hide": true
+                },
+                "OwnershipTransferred": {
+                    "hide": true
+                },
+                "Approval": {
+                    "hide": true
+                },
+                "Transfer": {
+                    "action": {
+                        "name": "STAKING",
+                        "class": "action-stacking"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "0"
+                        },
+                        {
+                            "type": "string",
+                            "content": "staked"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "2",
+                            "class": "token-amount-stacking",
+                            "noEndingSpace": true
+                        }
+                    ]
+                }
+            }
         }
     };
 
@@ -757,7 +816,7 @@
                         console.log("error:", error);
                     });
             },
-            
+
             /**
              * Add an event to the display rendering queue.
              * @param {*} event Event to add.
@@ -815,12 +874,35 @@
             hideEventOnBusinessRules: function (event) {
                 let result = false;
 
-                switch (event.eventName) {
-                    case "onDistributionBNKRDepot":
-                        if (event[1] < 10e5) { // 1 TRX in SUN
-                            result = true;
-                        }
-                        break;
+                // Daily+ contract
+                if (event.contractAddress === "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn") {
+                    switch (event.eventName) {
+                        // if BNKR Depot distribution is < 1 TRX, hide it.
+                        case "onDistributionBNKRDepot":
+                            if (event[1] < 10e5) { // 1 TRX in SUN
+                                result = true;
+                            }
+                            break;
+                    }
+                }
+                // BNKR token contract
+                else if (event.contractAddress === "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK") {
+                    switch (event.eventName) {
+                        // When tokens come from the ZERO address (T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
+                        // they are mined, not staked, hide it.
+                        case "Transfer":
+                            if (event[0] === "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb") {
+                                result = true;
+                            }
+                            break;
+                        // When mined amount is under 0.01 BNKR, hide it.
+                        // Avoid to display "xxxx...xxxx mined 0.00 BNKR".
+                        case "Mint":
+                            if (event[1] < 10e3) {
+                                result = true;
+                            }
+                            break;
+                    }
                 }
 
                 return result;

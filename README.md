@@ -2,7 +2,7 @@
 
 Bankroll logs is a jquery plugin that display bankroll network smart contract events in a terminal style way.
 
-![Demo](assets/bankroll_logs_demo.mov)
+![](assets/bankroll_logs_demo.gif)
 
 ## How to use it
 
@@ -161,13 +161,13 @@ Give an height property to the container div element.
 
 #### Events
 
-| Event name           | Action                | Hidden                               |
-| -------------------- | --------------------- | ------------------------------------ |
-| Mint                 | Token are mined       |                                      |
-| MintFinished         |                       |                                      |
-| OwnershipTransferred | Transferred ownership | Yes                                  |
-| Approval             | Approve staking       | Yes                                  |
-| Transfer             | Stake token           | Yes if it come from the ZERO address |
+| Event name           | Action                | Hidden                                      |
+| -------------------- | --------------------- | ------------------------------------------- |
+| Mint                 | Token are mined       | Yes if BNKR mined amount is under 0.01 BNKR |
+| MintFinished         |                       | Yes                                         |
+| OwnershipTransferred | Transferred ownership | Yes                                         |
+| Approval             | Approve staking       | Yes                                         |
+| Transfer             | Stake token           | Yes if it come from the ZERO address        |
 
 **Note :** for `Transfer` event :
 

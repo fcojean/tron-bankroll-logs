@@ -93,7 +93,9 @@
  * but should be in sync with class names used in contract definition.
  */
 .action-buy,
-.token-amount-buy {
+.token-amount-buy,
+.action-mining,
+.token-amount-mining {
     color: green;
 }
 
@@ -113,7 +115,9 @@
 }
 
 .action-transfer,
-.token-amount-transfer {
+.token-amount-transfer,
+.action-stacking,
+.token-amount-stacking {
     color: orange;
 }
 
