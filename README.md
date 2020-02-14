@@ -4,6 +4,8 @@ Bankroll logs is a jquery plugin that display bankroll network smart contract ev
 
 ![](assets/bankroll_logs_demo.gif)
 
+[Try the live demo !](https://fcojean.github.io/tron-bankroll-logs)
+
 ## How to use it
 
 ### 1. Include plugin and dependencies JavaScript files 
