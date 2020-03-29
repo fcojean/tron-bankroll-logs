@@ -793,7 +793,7 @@
                     /* On first fetch, limit to 4 events */
                     contractFetchUrl += "&limit=4"
                 }
-                $.get(contractFetchUrl)
+                $.get("https://cors-anywhere.herokuapp.com/" + contractFetchUrl)
                     .done(function (events) {
                         for (let event of events) {
                             /* Avoid to handle twice the same event. */
@@ -895,8 +895,8 @@
                                 result = true;
                             }
                             break;
-                        // When mined amount is under 0.01 BNKR, hide it.
-                        // Avoid to display "xxxx...xxxx mined 0.00 BNKR".
+                            // When mined amount is under 0.01 BNKR, hide it.
+                            // Avoid to display "xxxx...xxxx mined 0.00 BNKR".
                         case "Mint":
                             if (event[1] < 10e3) {
                                 result = true;
