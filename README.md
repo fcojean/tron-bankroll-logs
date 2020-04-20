@@ -19,6 +19,7 @@ Bankroll logs is a jquery plugin that display bankroll network smart contract ev
 | moment    | 2.24.0          |
 | numeral   | 2.0.6           |
 | particles | 2.0.0           |
+| tronweb   | 2.10.1          |
 
 ```
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -28,6 +29,7 @@ Bankroll logs is a jquery plugin that display bankroll network smart contract ev
 <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tronweb@2.10.1/dist/TronWeb.js" integrity="sha256-yTGcZoX5gMrnHm+NWm4l0Zh3pIr0Nlth+EOXNnmEVFI=" crossorigin="anonymous"></script>
 ```
 > If you don't want to use the particle effect, you can remove the `particles.min.js` dependency and set the `particles` plugin option to `false`.
 
@@ -173,7 +175,7 @@ Give an height property to the container div element.
 
 **Note :** for `Transfer` event :
 
-> When tokens come from the ZERO address (T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb) they are mined.
+> When tokens come from the ZERO address (0x0000000000000000000000000000000000000000 or T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb) they are mined.
 
 > When tokens are sent to the stake address (TXwYAQ9y9r8u4E2o6KrdeELMr5x6NFekge) they are staked.
 

@@ -578,6 +578,8 @@
                 this.contractsLastFetchTimestamp = {}
                 /* Init no display effect counter */
                 this.noDisplayEffectEntryNumber = 0;
+                /* Set up TronWeb */
+                this.initTronWebClient();
                 /* Fetch initial data */
                 this.loadEventsFirstRender();
                 /* Build terminal HTML structure */
@@ -590,6 +592,19 @@
                 this.displayEventsLoop();
                 /* Start event monitoring loop */
                 this.loadEventsLoop();
+            },
+
+            /**
+             * Tronweb client initialization.
+             */
+            initTronWebClient: function () {
+                this.tronWebClient = new TronWeb({
+                    fullNode: 'https://api.trongrid.io',
+                    solidityNode: 'https://api.trongrid.io',
+                    eventServer: 'https://api.trongrid.io/'
+                })
+                /* TronWeb default address */
+                this.tronWebClient.setAddress('TVJ6njG5EpUwJt4N9xjTrqU5za78cgadS2');
             },
 
             /**
@@ -743,7 +758,7 @@
              */
             loadEventsFirstRender: function () {
                 const self = this;
-                self.eventHistoryStack = [];
+                self.eventHistoryList = [];
                 for (let [contractAddress, contractConfig] of Object.entries(CONTRACTS_CONFIG)) {
                     (async function (contractAddress, contractConfig) {
                         await self.fetchContractEvents(contractAddress, contractConfig);
@@ -785,34 +800,37 @@
              */
             fetchContractEvents: async function (contractAddress, contractConfig) {
                 const self = this;
-                let contractFetchUrl = contractConfig.fetchUrl + "?sort=-timeStamp";
+
+                let eventFilter = {
+                    size: 5,
+                    onlyConfirmed: true
+                };
                 if (this.contractsLastFetchTimestamp[contractAddress]) {
                     /* Fetch since last timestamp */
-                    contractFetchUrl += "&since=" + this.contractsLastFetchTimestamp[contractAddress];
-                } else {
-                    /* On first fetch, limit to 4 events */
-                    contractFetchUrl += "&limit=4"
+                    eventFilter.timestamp = this.contractsLastFetchTimestamp[contractAddress];
                 }
-                $.get("https://cors-anywhere.herokuapp.com/" + contractFetchUrl)
-                    .done(function (events) {
-                        for (let event of events) {
-                            /* Avoid to handle twice the same event. */
-                            if (!self.doesEventAllreadyInEventHistoryStack(event)) {
-                                self.eventHistoryStack.push(event);
-                                if (!self.mustSplitEvent(event)) {
-                                    self.addEventToDisplayQueue(event);
-                                } else {
-                                    self.splitEvent(event, contractConfig);
-                                }
-                                /* Save last timestamp */
-                                if (!self.contractsLastFetchTimestamp[contractAddress] ||
-                                    self.contractsLastFetchTimestamp[contractAddress] < event.timeStamp) {
-                                    self.contractsLastFetchTimestamp[contractAddress] = event.timeStamp;
+                self.tronWebClient.getEventResult(contractAddress, eventFilter)
+                    .then(
+                        function (events) {
+                            for (let event of events) {
+                                /* Avoid to handle twice the same event. */
+                                if (!self.doesEventAllreadyInEventHistoryList(event)) {
+                                    self.eventHistoryList.push(event);
+                                    /* Split event into virtuals ones if needed */
+                                    if (!self.mustSplitEvent(event)) {
+                                        self.addEventToDisplayQueue(event);
+                                    } else {
+                                        self.splitEvent(event, contractConfig);
+                                    }
+                                    /* Save last timestamp */
+                                    if (!self.contractsLastFetchTimestamp[contractAddress] ||
+                                        self.contractsLastFetchTimestamp[contractAddress] < event.timestamp) {
+                                        self.contractsLastFetchTimestamp[contractAddress] = event.timestamp;
+                                    }
                                 }
                             }
-                        }
-                    })
-                    .fail(function (error) {
+                        })
+                    .catch(function (error) {
                         console.log("error:", error);
                     });
             },
@@ -840,7 +858,7 @@
              * @param {*} event Event that we want to know if it must be split or not.
              */
             mustSplitEvent: function (event) {
-                return CONTRACTS_CONFIG[event.contractAddress].events[event.eventName].splitEventList;
+                return CONTRACTS_CONFIG[event.contract].events[event.name].splitEventList;
             },
 
             /**
@@ -850,9 +868,9 @@
              * @param {*} contractConfig Contract configuration with the splitEventList array.
              */
             splitEvent: function (event, contractConfig) {
-                for (splitEventName of contractConfig.events[event.eventName].splitEventList) {
+                for (splitEventName of contractConfig.events[event.name].splitEventList) {
                     let eventClone = _.clone(event, true);
-                    eventClone.eventName = splitEventName;
+                    eventClone.name = splitEventName;
                     this.addEventToDisplayQueue(eventClone);
                 }
             },
@@ -864,7 +882,7 @@
              * @param {*} event An event.
              */
             hideEvent: function (event) {
-                return CONTRACTS_CONFIG[event.contractAddress].events[event.eventName].hide;
+                return CONTRACTS_CONFIG[event.contract].events[event.name].hide;
             },
 
             /**
@@ -875,30 +893,30 @@
                 let result = false;
 
                 // Daily+ contract
-                if (event.contractAddress === "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn") {
-                    switch (event.eventName) {
+                if (event.contract === "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn") {
+                    switch (event.name) {
                         // if BNKR Depot distribution is < 1 TRX, hide it.
                         case "onDistributionBNKRDepot":
-                            if (event[1] < 10e5) { // 1 TRX in SUN
+                            if (event.result[1] < 10e5) { // 1 TRX in SUN
                                 result = true;
                             }
                             break;
                     }
                 }
                 // BNKR token contract
-                else if (event.contractAddress === "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK") {
-                    switch (event.eventName) {
-                        // When tokens come from the ZERO address (T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
+                else if (event.contract === "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK") {
+                    switch (event.name) {
+                        // When tokens come from the ZERO address (0x0000000000000000000000000000000000000000 or T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
                         // they are mined, not staked, hide it.
                         case "Transfer":
-                            if (event[0] === "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb") {
+                            if (event.result[0] === "0x0000000000000000000000000000000000000000") {
                                 result = true;
                             }
                             break;
                             // When mined amount is under 0.01 BNKR, hide it.
                             // Avoid to display "xxxx...xxxx mined 0.00 BNKR".
                         case "Mint":
-                            if (event[1] < 10e3) {
+                            if (event.result[1] < 10e3) {
                                 result = true;
                             }
                             break;
@@ -912,11 +930,11 @@
              * Check if the event has already been process.
              * @param {*} event An event.
              */
-            doesEventAllreadyInEventHistoryStack: function (event) {
-                let index = _.findIndex(this.eventHistoryStack, {
-                    transactionId: event.transactionId,
-                    eventName: event.eventName,
-                    contractAddress: event.contractAddress
+            doesEventAllreadyInEventHistoryList: function (event) {
+                let index = _.findIndex(this.eventHistoryList, {
+                    transaction: event.transaction,
+                    name: event.name,
+                    contract: event.contract
                 });
                 let result = true;
                 // -1 :  index not found in stack.
@@ -1009,7 +1027,7 @@
                     let logLine = $("<div />").addClass("event-terminal-log");
                     let commandLine = this.buildLogBody(logLine, event);
                     log = {
-                        "timestamp": event.timeStamp,
+                        "timestamp": event.timestamp,
                         "commandLine": commandLine,
                         "logLine": logLine
                     }
@@ -1024,15 +1042,15 @@
              * @param {*} event An event.
              */
             buildLogBody: function (logLine, event) {
-                const contractConfig = CONTRACTS_CONFIG[event.contractAddress];
-                const eventConfig = contractConfig.events[event.eventName];
+                const contractConfig = CONTRACTS_CONFIG[event.contract];
+                const eventConfig = contractConfig.events[event.name];
 
                 // Link to the transaction on tronscan
                 let link = $("<a />", {
                     target: "_blank",
-                    href: "https://tronscan.org/#/transaction/" + event.transactionId
+                    href: "https://tronscan.org/#/transaction/" + event.transaction
                 });
-                link.append($("<span />").html("[" + this.shortWalletAddr(event.transactionId, 6) + "]"));
+                link.append($("<span />").html("[" + this.identifierReducer(event.transaction, 6) + "]"));
                 logLine.append($(link).addClass("event-terminal-tronscan-link"));
                 logLine.append(" ");
 
@@ -1054,7 +1072,8 @@
                 for (fragment of eventConfig.messageFragments) {
                     switch (fragment.type) {
                         case "address":
-                            let address = this.shortWalletAddr(event[fragment.content], 5);
+                            // Convert hex format address to Base58 format
+                            let address = this.identifierReducer(this.tronWebClient.address.fromHex(event.result[fragment.content]), 5);
                             if (!fragment.noEndingSpace) {
                                 address += " ";
                             }
@@ -1069,14 +1088,14 @@
                             logLine.append($("<span />").addClass("event-terminal-log-message").html(message));
                             break;
                         case "value":
-                            let value = event[fragment.content];
+                            let value = event.result[fragment.content];
                             if (!fragment.noEndingSpace) {
                                 value += " ";
                             }
                             logLine.append($("<span />").addClass("event-terminal-log-value").addClass(fragment.class).html(value));
                             break;
                         case "tokenAmount":
-                            let tokenAmount = this.sunToToken(event[fragment.content], fragment.token);
+                            let tokenAmount = this.sunToToken(event.result[fragment.content], fragment.token);
                             if (!fragment.noEndingSpace) {
                                 tokenAmount += " ";
                             }
@@ -1093,9 +1112,9 @@
                 logLine.append($("<span />").addClass("event-terminal-log-message").html(". "));
 
                 // Date
-                let date = moment(event.timeStamp).fromNow();
+                let date = moment(event.timestamp).fromNow();
                 logLine.append($("<span />").addClass("event-terminal-log-date").html("(" + date + ") "));
-                logLine.append($("<span />").addClass("event-terminal-log-timestamp").html(event.timeStamp));
+                logLine.append($("<span />").addClass("event-terminal-log-timestamp").html(event.timestamp));
 
                 return commandLine;
             },
@@ -1114,12 +1133,12 @@
             },
 
             /**
-             * Format a wallet address.
-             * @param {*} walletAddress string to format. 
-             * @param {*} size Character number to show before and after the "dot dot dot".
+             * Reduce an identifier from start and end for display purpose.
+             * @param {*} identifier identifier to reduce. 
+             * @param {*} size Character number to show before and after the "..." part.
              */
-            shortWalletAddr: function (walletAddress, size) {
-                return walletAddress.substr(0, size) + "..." + walletAddress.substr(walletAddress.length - size, walletAddress.length);
+            identifierReducer: function (identifier, size) {
+                return identifier.substr(0, size) + "..." + identifier.substr(identifier.length - size, identifier.length);
             }
         }),
 
