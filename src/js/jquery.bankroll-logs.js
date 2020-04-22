@@ -30,7 +30,6 @@
     const CONTRACTS_CONFIG = {
         "TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq": {
             "name": "Boost",
-            "fetchUrl": "https://api.tronex.io/events/TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq",
             "events": {
                 "onLeaderBoard": {
                     "hide": true
@@ -136,7 +135,6 @@
         },
         "TUTik4srgKuzgXoL4KfV75foQbYuP8SirY": {
             "name": "Credits",
-            "fetchUrl": "https://api.tronex.io/events/TUTik4srgKuzgXoL4KfV75foQbYuP8SirY",
             "events": {
                 "onTokenPurchase": {
                     "action": {
@@ -266,7 +264,6 @@
         },
         "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn": {
             "name": "Daily+",
-            "fetchUrl": "https://api.tronex.io/events/THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn",
             "events": {
                 "onLeaderBoard": {
                     "hide": true
@@ -446,7 +443,6 @@
         },
         "TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn": {
             "name": "Air",
-            "fetchUrl": "https://api.tronex.io/events/TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn",
             "events": {
                 "onPlayerSummary": {
                     "action": {
@@ -551,6 +547,92 @@
                             "noEndingSpace": true
                         }
                     ]
+                }
+            }
+        },
+        "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ": {
+            "name": "Save",
+            "events": {
+                "onFreeze": {
+                    "action": {
+                        "name": "DEPOSIT",
+                        "class": "action-deposit"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "0"
+                        },
+                        {
+                            "type": "string",
+                            "content": "deposit"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "1",
+                            "class": "token-amount-deposit",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onUnfreeze": {
+                    "action": {
+                        "name": "WITHDRAW",
+                        "class": "action-withdraw"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "0"
+                        },
+                        {
+                            "type": "string",
+                            "content": "withdrew"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "1",
+                            "class": "token-amount-withdraw",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onClaim": {
+                    "action": {
+                        "name": "CLAIM",
+                        "class": "action-claim"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "0"
+                        },
+                        {
+                            "type": "string",
+                            "content": "claimed"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "1",
+                            "class": "token-amount-withdraw",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onBalance": {
+                    "hide": true
+                },
+                "onContractBalance": {
+                    "hide": true
+                },
+                "WhitelistedAddressAdded": {
+                    "hide": true
+                },
+                "WhitelistedAddressRemoved": {
+                    "hide": true
+                },
+                "OwnershipTransferred": {
+                    "hide": true
                 }
             }
         }
@@ -801,17 +883,19 @@
             fetchContractEvents: async function (contractAddress, contractConfig) {
                 const self = this;
 
-                let eventFilter = {
-                    size: 5,
-                    onlyConfirmed: true
-                };
-                if (this.contractsLastFetchTimestamp[contractAddress]) {
-                    /* Fetch since last timestamp */
-                    eventFilter.timestamp = this.contractsLastFetchTimestamp[contractAddress];
+                if (!this.contractsLastFetchTimestamp[contractAddress]) {
+                    this.contractsLastFetchTimestamp[contractAddress] = moment().subtract(60, 'seconds').utc().valueOf();
                 }
+                let eventFilter = {
+                    onlyConfirmed: true,
+                    sinceTimestamp: this.contractsLastFetchTimestamp[contractAddress],
+                    size: 5
+                };
+                
                 self.tronWebClient.getEventResult(contractAddress, eventFilter)
                     .then(
                         function (events) {
+                            console.log(events);
                             for (let event of events) {
                                 /* Avoid to handle twice the same event. */
                                 if (!self.doesEventAllreadyInEventHistoryList(event)) {
@@ -822,12 +906,12 @@
                                     } else {
                                         self.splitEvent(event, contractConfig);
                                     }
-                                    /* Save last timestamp */
-                                    if (!self.contractsLastFetchTimestamp[contractAddress] ||
-                                        self.contractsLastFetchTimestamp[contractAddress] < event.timestamp) {
-                                        self.contractsLastFetchTimestamp[contractAddress] = event.timestamp;
-                                    }
                                 }
+                            }
+                            /* Save last more recent timestamp */
+                            if ((events.length > 0) && (!self.contractsLastFetchTimestamp[contractAddress] ||
+                                self.contractsLastFetchTimestamp[contractAddress] < events[0].timestamp)) {
+                                self.contractsLastFetchTimestamp[contractAddress] = events[0].timestamp;
                             }
                         })
                     .catch(function (error) {

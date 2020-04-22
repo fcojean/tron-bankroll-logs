@@ -179,3 +179,22 @@ Give an height property to the container div element.
 
 > When tokens are sent to the stake address (TXwYAQ9y9r8u4E2o6KrdeELMr5x6NFekge) they are staked.
 
+### Save contract information
+
+
+* Event fetch URL : https://api.tronex.io/events/THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ
+* TronScan page : https://tronscan.org/#/contract/THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ/code
+
+#### Events
+
+| Event name                | Action                       | Hidden |
+| ------------------------- | ---------------------------- | ------ |
+| onFreeze                  | Deposit                      |        |
+| onUnfreeze                | Withdraw                     |        |
+| onClaim                   | Claim                        |        |
+| onBalance                 | Customer balance             | Yes    |
+| onContractBalance         | Contract balance             | Yes    |
+| WhitelistedAddressAdded   | Add a whitelisted address    | Yes    |
+| WhitelistedAddressRemoved | Remove a whitelisted address | Yes    |
+| OwnershipTransferred      | Transferred ownership        | Yes    |
+

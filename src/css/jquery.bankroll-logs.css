@@ -95,7 +95,9 @@
 .action-buy,
 .token-amount-buy,
 .action-mining,
-.token-amount-mining {
+.token-amount-mining,
+.action-deposit,
+.token-amount-deposit {
     color: green;
 }
 
@@ -105,7 +107,8 @@
 }
 
 .action-freeroll,
-.token-amount-freeroll {
+.token-amount-freeroll,
+.action-claim {
     color: greenyellow;
 }
 
