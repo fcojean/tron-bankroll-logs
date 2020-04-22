@@ -14,8 +14,6 @@
     const pluginName = "bankroll_logs";
     /* Value that determine the speed of the typing effect in the command line section. */
     const COMMAND_LINE_TYPE_SPEED = 100;
-    /* Delay (in milliseconds) between to events data fetching cycle. */
-    const LOAD_EVENTS_LOOP_INTERVAL = 3000;
     /* Delay (in miliseconds) between to display rendering cycle. */
     const DISPLAY_LOOP_INTERVAL = 500;
     /* Command line text when waiting for transactions */
@@ -24,8 +22,10 @@
     const COMMAND_LINE_INVITE = "bankroll.network $> ";
     /* Command line cursor symbol */
     const COMMAND_LINE_CURSOR = "&#9608;";
-    /* Number of log that will be displayed without effect after first event loading. */
-    const DISPLAY_WITHOUT_EFFECT_MAX_ENTRY = 10;
+    /* Tron grid URL */
+    const TRON_GRID_URL = "https://api.trongrid.io";
+    /* Tron Default address */
+    const TRON_DEFAULT_ADDRESS = "TVJ6njG5EpUwJt4N9xjTrqU5za78cgadS2";
     /* Contracts configuration */
     const CONTRACTS_CONFIG = {
         "TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq": {
@@ -401,6 +401,7 @@
                     "messageFragments": []
                 },
                 "onDistributionPlayers": {
+                    "virtual": true,
                     "action": {
                         "name": "PAYOUT",
                         "class": "action-donate"
@@ -419,6 +420,7 @@
                     ]
                 },
                 "onDistributionBNKRDepot": {
+                    "virtual": true,
                     "action": {
                         "name": "PAYOUT",
                         "class": "action-donate"
@@ -614,7 +616,7 @@
                             "type": "tokenAmount",
                             "token": "BNKR",
                             "content": "1",
-                            "class": "token-amount-withdraw",
+                            "class": "token-amount-claim",
                             "noEndingSpace": true
                         }
                     ]
@@ -656,10 +658,10 @@
              * Init function. Called only once in the plugin constructor.
              */
             init: function () {
-                /* Init contract last fetch timestamp object */
-                this.contractsLastFetchTimestamp = {}
                 /* Init no display effect counter */
                 this.noDisplayEffectEntryNumber = 0;
+                /* Init display without effect counter */
+                this.displayWithoutEffectMaxEntry = 0;
                 /* Set up TronWeb */
                 this.initTronWebClient();
                 /* Fetch initial data */
@@ -672,8 +674,8 @@
                 }
                 /* Start display loop */
                 this.displayEventsLoop();
-                /* Start event monitoring loop */
-                this.loadEventsLoop();
+                /* Start event monitoring */
+                this.startEventsWatchers();
             },
 
             /**
@@ -681,12 +683,12 @@
              */
             initTronWebClient: function () {
                 this.tronWebClient = new TronWeb({
-                    fullNode: 'https://api.trongrid.io',
-                    solidityNode: 'https://api.trongrid.io',
-                    eventServer: 'https://api.trongrid.io/'
+                    fullNode: TRON_GRID_URL,
+                    solidityNode: TRON_GRID_URL,
+                    eventServer: TRON_GRID_URL
                 })
                 /* TronWeb default address */
-                this.tronWebClient.setAddress('TVJ6njG5EpUwJt4N9xjTrqU5za78cgadS2');
+                this.tronWebClient.setAddress(TRON_DEFAULT_ADDRESS);
             },
 
             /**
@@ -840,24 +842,75 @@
              */
             loadEventsFirstRender: function () {
                 const self = this;
-                self.eventHistoryList = [];
+
+                /* Loop on contract configuration to loop on events */
                 for (let [contractAddress, contractConfig] of Object.entries(CONTRACTS_CONFIG)) {
                     (async function (contractAddress, contractConfig) {
-                        await self.fetchContractEvents(contractAddress, contractConfig);
+                        await self.fetchContractEventsFirstRender(contractAddress, contractConfig);
                     })(contractAddress, contractConfig);
                 }
             },
 
             /**
-             * Data fetching loop
+             * Fetch events from contracts via tronWeb.getEventResult method.
+             * Used only to fetch first event and don't display an empty terminal
+             * until the first live event shows up.
+             * @param {*} contractAddress Contract address.
+             * @param {*} contractConfig Contract configuration object.
              */
-            loadEventsLoop: function () {
+            fetchContractEventsFirstRender: async function (contractAddress, contractConfig) {
                 const self = this;
+
+                let eventFilter = {
+                    onlyConfirmed: true,
+                    size: 5
+                };
+
+                self.tronWebClient.getEventResult(contractAddress, eventFilter)
+                    .then(
+                        function (events) {
+                            for (let event of events) {
+                                /* Launch event processing */
+                                self.processEvent(event, contractConfig, true);
+                            }
+                        })
+                    .catch(function (error) {
+                        console.error("error:", error);
+                    });
+            },
+
+            /**
+             * Start to watch for events via contract method watcher.
+             */
+            startEventsWatchers: async function () {
+
+                const self = this;
+                /* Loop on each contract config */
                 for (let [contractAddress, contractConfig] of Object.entries(CONTRACTS_CONFIG)) {
-                    (function (contractAddress, contractConfig) {
-                        setInterval(function () {
-                            self.fetchContractEvents(contractAddress, contractConfig);
-                        }, LOAD_EVENTS_LOOP_INTERVAL);
+                    (async function (contractAddress, contractConfig) {
+                        try {
+                            /* Get contract instance */
+                            let contractInstance = await self.tronWebClient.contract().at(contractAddress);
+                            /* Loop on each contract event config */
+                            for (let [eventName, eventConfig] of Object.entries(CONTRACTS_CONFIG[contractAddress].events)) {
+                                (function (eventName, eventConfig) {
+                                    /* Do not process virtual and hidden event */
+                                    if (!eventConfig.virtual && !eventConfig.hide) {
+                                        contractInstance[eventName]().watch(
+                                            function (error, event) {
+                                                if (event) {
+                                                    self.processEvent(event, contractConfig, false);
+                                                } else if (error) {
+                                                    console.error('Error with "method" event:', error);
+                                                }
+                                            }
+                                        );
+                                    }
+                                })(eventName, eventConfig);
+                            }
+                        } catch (error) {
+                            console.error(error);
+                        }
                     })(contractAddress, contractConfig);
                 }
             },
@@ -867,6 +920,7 @@
              */
             displayEventsLoop: function () {
                 const self = this;
+
                 self.logDisplayQueue = [];
                 self.isDisplayInProgress = false;
                 this.commandLineCursorAnimate();
@@ -876,54 +930,11 @@
             },
 
             /**
-             * Fetch events from contracts
-             * @param {*} contractAddress Contract address.
-             * @param {*} contractConfig Contract configuration object.
-             */
-            fetchContractEvents: async function (contractAddress, contractConfig) {
-                const self = this;
-
-                if (!this.contractsLastFetchTimestamp[contractAddress]) {
-                    this.contractsLastFetchTimestamp[contractAddress] = moment().subtract(60, 'seconds').utc().valueOf();
-                }
-                let eventFilter = {
-                    onlyConfirmed: true,
-                    sinceTimestamp: this.contractsLastFetchTimestamp[contractAddress],
-                    size: 5
-                };
-                
-                self.tronWebClient.getEventResult(contractAddress, eventFilter)
-                    .then(
-                        function (events) {
-                            console.log(events);
-                            for (let event of events) {
-                                /* Avoid to handle twice the same event. */
-                                if (!self.doesEventAllreadyInEventHistoryList(event)) {
-                                    self.eventHistoryList.push(event);
-                                    /* Split event into virtuals ones if needed */
-                                    if (!self.mustSplitEvent(event)) {
-                                        self.addEventToDisplayQueue(event);
-                                    } else {
-                                        self.splitEvent(event, contractConfig);
-                                    }
-                                }
-                            }
-                            /* Save last more recent timestamp */
-                            if ((events.length > 0) && (!self.contractsLastFetchTimestamp[contractAddress] ||
-                                self.contractsLastFetchTimestamp[contractAddress] < events[0].timestamp)) {
-                                self.contractsLastFetchTimestamp[contractAddress] = events[0].timestamp;
-                            }
-                        })
-                    .catch(function (error) {
-                        console.log("error:", error);
-                    });
-            },
-
-            /**
              * Add an event to the display rendering queue.
              * @param {*} event Event to add.
+             * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
-            addEventToDisplayQueue: function (event) {
+            addEventToDisplayQueue: function (event, firstRender) {
                 /* Mute events that we don't want to display by contract configuration */
                 if (!this.hideEvent(event)) {
                     /* Mute event on specific business rules */
@@ -931,8 +942,27 @@
                         let log = this.eventToLog(event);
                         if (log) {
                             this.logDisplayQueue.push(log);
+                            /* Increment counter to display first render events without display effect. */
+                            if(firstRender) {
+                                this.displayWithoutEffectMaxEntry++;
+                            }                            
                         }
                     }
+                }
+            },
+
+            /**
+             * Event processing.
+             * @param {*} event Event to process.
+             * @param {*} contractConfig contract configuration object.
+             * @param {*} firstRender flag indicating that it is the  first render display phase.
+             */
+            processEvent: function (event, contractConfig, firstRender) {
+                /* Split event into virtuals ones if needed */
+                if (!this.mustSplitEvent(event)) {
+                    this.addEventToDisplayQueue(event, firstRender);
+                } else {
+                    this.splitEvent(event, contractConfig, firstRender);
                 }
             },
 
@@ -950,12 +980,13 @@
              * See splitEventList contract configuration.
              * @param {*} event Event to split
              * @param {*} contractConfig Contract configuration with the splitEventList array.
+             * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
-            splitEvent: function (event, contractConfig) {
+            splitEvent: function (event, contractConfig, firstRender) {
                 for (splitEventName of contractConfig.events[event.name].splitEventList) {
                     let eventClone = _.clone(event, true);
                     eventClone.name = splitEventName;
-                    this.addEventToDisplayQueue(eventClone);
+                    this.addEventToDisplayQueue(eventClone, firstRender);
                 }
             },
 
@@ -1011,25 +1042,6 @@
             },
 
             /**
-             * Check if the event has already been process.
-             * @param {*} event An event.
-             */
-            doesEventAllreadyInEventHistoryList: function (event) {
-                let index = _.findIndex(this.eventHistoryList, {
-                    transaction: event.transaction,
-                    name: event.name,
-                    contract: event.contract
-                });
-                let result = true;
-                // -1 :  index not found in stack.
-                if (index == -1) {
-                    result = false;
-                }
-
-                return result;
-            },
-
-            /**
              * Display rendering pipeline.
              * Check if it is time to render a log. If yes, start the log rendering
              * with or with the command line effect. 
@@ -1040,7 +1052,7 @@
                     let log = this.logDisplayQueue.shift();
                     if (log) {
                         this.isDisplayInProgress = true;
-                        if (this.noDisplayEffectEntryNumber <= DISPLAY_WITHOUT_EFFECT_MAX_ENTRY) {
+                        if (this.noDisplayEffectEntryNumber < this.displayWithoutEffectMaxEntry) {
                             this.displayEventWithoutEffect(log);
                         } else {
                             this.displayEventWithCommandLineWriterEffect(log.commandLine + "      ", 0, log.logLine);

@@ -108,7 +108,8 @@
 
 .action-freeroll,
 .token-amount-freeroll,
-.action-claim {
+.action-claim,
+.token-amount-claim {
     color: greenyellow;
 }
 
