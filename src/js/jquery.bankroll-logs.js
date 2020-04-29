@@ -8,7 +8,8 @@
     /* Default plugin options value */
     const defaultOptions = {
         balanceReportLimit: 10,
-        particles: true
+        particles: true,
+        firstRenderFetchEventNumber: 3
     };
     /* Plugin name */
     const pluginName = "bankroll_logs";
@@ -30,6 +31,11 @@
     const CONTRACTS_CONFIG = {
         "TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq": {
             "name": "Boost",
+            "balance": {
+                "show": true,
+                "token": "BTT",
+                "method": "totalSupply"
+            },
             "events": {
                 "onLeaderBoard": {
                     "hide": true
@@ -130,11 +136,38 @@
                 },
                 "OwnershipTransferred": {
                     "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BTT",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         },
         "TUTik4srgKuzgXoL4KfV75foQbYuP8SirY": {
             "name": "Credits",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
             "events": {
                 "onTokenPurchase": {
                     "action": {
@@ -259,11 +292,38 @@
                 },
                 "OwnershipTransferred": {
                     "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         },
         "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn": {
             "name": "Daily+",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
             "events": {
                 "onLeaderBoard": {
                     "hide": true
@@ -440,11 +500,38 @@
                 },
                 "OwnershipTransferred": {
                     "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         },
         "TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn": {
             "name": "Air",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
             "events": {
                 "onPlayerSummary": {
                     "action": {
@@ -490,12 +577,39 @@
                 },
                 "OwnershipTransferred": {
                     "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         },
         "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK": {
             "name": "BNKR",
-            "fetchUrl": "https://api.tronex.io/events/TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK",
+            "balance": {
+                "show": true,
+                "token": "BNKR",
+                "method": "mintedSupply"
+            },
             "events": {
                 "Mint": {
                     "action": {
@@ -549,11 +663,34 @@
                             "noEndingSpace": true
                         }
                     ]
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "have been mined",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         },
         "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ": {
             "name": "Save",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
             "events": {
                 "onFreeze": {
                     "action": {
@@ -635,6 +772,29 @@
                 },
                 "OwnershipTransferred": {
                     "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         }
@@ -662,6 +822,9 @@
                 this.noDisplayEffectEntryNumber = 0;
                 /* Init display without effect counter */
                 this.displayWithoutEffectMaxEntry = 0;
+                /* Balance limit report counter and flag */
+                this.balanceReportCounter = {};
+                this.balanceReportFlag = [];
                 /* Set up TronWeb */
                 this.initTronWebClient();
                 /* Fetch initial data */
@@ -863,20 +1026,22 @@
 
                 let eventFilter = {
                     onlyConfirmed: true,
-                    size: 5
+                    size: this.options.firstRenderFetchEventNumber
                 };
 
-                self.tronWebClient.getEventResult(contractAddress, eventFilter)
-                    .then(
-                        function (events) {
-                            for (let event of events) {
-                                /* Launch event processing */
-                                self.processEvent(event, contractConfig, true);
-                            }
-                        })
-                    .catch(function (error) {
-                        console.error("error:", error);
-                    });
+                if (this.options.firstRenderFetchEventNumber > 0) {
+                    self.tronWebClient.getEventResult(contractAddress, eventFilter)
+                        .then(
+                            function (events) {
+                                for (let event of events) {
+                                    /* Launch event processing */
+                                    self.processEvent(event, contractConfig, true);
+                                }
+                            })
+                        .catch(function (error) {
+                            console.error("error:", error);
+                        });
+                }
             },
 
             /**
@@ -900,8 +1065,6 @@
                                             function (error, event) {
                                                 if (event) {
                                                     self.processEvent(event, contractConfig, false);
-                                                } else if (error) {
-                                                    console.error('Error with "method" event:', error);
                                                 }
                                             }
                                         );
@@ -912,6 +1075,38 @@
                             console.error(error);
                         }
                     })(contractAddress, contractConfig);
+                }
+            },
+
+            /**
+             * Get the contract balance and add it to display queue.
+             * @param {*} contractAddress Contract address to fetch balance from.
+             */
+            fetchContractBalance: async function (contractAddress) {
+                let contractConfig = CONTRACTS_CONFIG[contractAddress];
+
+                if (contractConfig.balance.show) {
+                    /* Contract which need to call a specific method to get the balance */
+                    let balance;
+                    if (contractConfig.balance.method) {
+                        /* Get contract instance */
+                        let contractInstance = await this.tronWebClient.contract().at(contractAddress);
+                        balance = await contractInstance[contractConfig.balance.method]().call();
+                        if (balance) {
+                            /* Generate and add event to Queue */
+                            let event = this.generateLogBalanceEvent(balance, contractAddress);
+                            this.addEventToDisplayQueue(event, false);
+                        }
+                    }
+                    /* Contract that use the generic TRX contract balance */
+                    else {
+                        balance = await this.tronWebClient.trx.getBalance(contractAddress);
+                        if (balance) {
+                            /* Generate and add event to Queue */
+                            let event = this.generateLogBalanceEvent(balance, contractAddress);
+                            this.addEventToDisplayQueue(event, false);
+                        }
+                    }
                 }
             },
 
@@ -934,7 +1129,7 @@
              * @param {*} event Event to add.
              * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
-            addEventToDisplayQueue: function (event, firstRender) {
+            addEventToDisplayQueue: async function (event, firstRender) {
                 /* Mute events that we don't want to display by contract configuration */
                 if (!this.hideEvent(event)) {
                     /* Mute event on specific business rules */
@@ -943,9 +1138,11 @@
                         if (log) {
                             this.logDisplayQueue.push(log);
                             /* Increment counter to display first render events without display effect. */
-                            if(firstRender) {
+                            if (firstRender) {
                                 this.displayWithoutEffectMaxEntry++;
-                            }                            
+                            }
+                            /* Show contract balance if needed */
+                            await this.showContractBalance(event, firstRender);
                         }
                     }
                 }
@@ -963,6 +1160,27 @@
                     this.addEventToDisplayQueue(event, firstRender);
                 } else {
                     this.splitEvent(event, contractConfig, firstRender);
+                }
+            },
+
+            /**
+             * Show contract balance if balanceReportLimit is hit.
+             * @param {*} event event data.
+             * @param {*} firstRender flag indicating that it is the  first render display phase.
+             */
+            showContractBalance: function (event, firstRender) {
+                if (!firstRender && event.name !== "logContractBalance") {
+                    /* Handle balance report flag to display balance when needed */
+                    if (!this.balanceReportCounter[event.contract]) {
+                        this.balanceReportCounter[event.contract] = 1
+                    } else {
+                        this.balanceReportCounter[event.contract]++;
+                    }
+                    /* Get balance when needed */
+                    if (this.balanceReportCounter[event.contract] % this.options.balanceReportLimit == 0) {
+                        /* Retrieve contract balance */
+                        this.fetchContractBalance(event.contract);
+                    }
                 }
             },
 
@@ -1044,10 +1262,11 @@
             /**
              * Display rendering pipeline.
              * Check if it is time to render a log. If yes, start the log rendering
-             * with or with the command line effect. 
+             * with or without the command line effect. 
              */
             displayEvents: function () {
                 if (!this.isDisplayInProgress) {
+                    /* Display next event */
                     this.logDisplayQueue = _.sortBy(this.logDisplayQueue, "timestamp");
                     let log = this.logDisplayQueue.shift();
                     if (log) {
@@ -1114,6 +1333,25 @@
             },
 
             /**
+             * Generate a virtual log balance event.
+             * Used to display contract balance.
+             * @param {*} balance contract balance.
+             * @param {*} contractAddress contract address.
+             */
+            generateLogBalanceEvent: function (balance, contractAddress) {
+                let logBalanceEvent = {
+                    contract: contractAddress,
+                    name: "logContractBalance",
+                    timestamp: moment().utc().valueOf()
+                };
+                logBalanceEvent.result = {
+                    "balance": balance
+                };
+
+                return logBalanceEvent;
+            },
+
+            /**
              * Convert an event object into a log object.
              * @param {*} event An event.
              */
@@ -1142,13 +1380,23 @@
                 const eventConfig = contractConfig.events[event.name];
 
                 // Link to the transaction on tronscan
-                let link = $("<a />", {
-                    target: "_blank",
-                    href: "https://tronscan.org/#/transaction/" + event.transaction
-                });
-                link.append($("<span />").html("[" + this.identifierReducer(event.transaction, 6) + "]"));
-                logLine.append($(link).addClass("event-terminal-tronscan-link"));
+                if (event.transaction) {
+                    let link = $("<a />", {
+                        target: "_blank",
+                        href: "https://tronscan.org/#/transaction/" + event.transaction
+                    });
+                    link.append($("<span />").html("[" + this.identifierReducer(event.transaction, 6) + "]"));
+                    logLine.append($(link).addClass("event-terminal-tronscan-link"));
+                } else {
+                    let link = $("<a />", {
+                        target: "_blank",
+                        href: "https://tronscan.org/#/contract/" + event.contract
+                    });
+                    link.append($("<span />").html("[" + this.identifierReducer(event.contract, 6) + "]"));
+                    logLine.append($(link).addClass("event-terminal-tronscan-link"));
+                }
                 logLine.append(" ");
+
 
                 // Contract name
                 let contractName = contractConfig.name;

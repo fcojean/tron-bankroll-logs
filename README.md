@@ -69,11 +69,12 @@ Give an height property to the container div element.
 
 ## Plugin options
 
-| Option                 | Type    | Default value   | Description |
-| ---------------------- | ------- | --------------- | ----------- |
-| balanceReportLimit     | Number  | 10              | **(Not implemented yet)** Displayed event number before reporting contract balances. |
-| particles              | Boolean | true            | Enable the particle effect in terminal background. |
-| contractsConfiguration | Object  | See source code | **(Not implemented yet)** Allow to provide a custom contract configuration object. | 
+| Option                      | Type    | Default value   | Description |
+| --------------------------- | ------- | --------------- | ----------- |
+| balanceReportLimit          | Number  | 10              | Displayed contract event number before reporting contract balances. |
+| particles                   | Boolean | true            | Enable the particle effect in terminal background. |
+| firstRenderFetchEventNumber | Number  | 3               | Event number to fetch from blockchain for the first render. |
+| contractsConfiguration      | Object  | See source code | **(Not implemented yet)** Allow to provide a custom contract configuration object. | 
 
 ### Example :
 

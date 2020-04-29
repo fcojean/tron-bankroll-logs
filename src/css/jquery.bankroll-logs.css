@@ -129,3 +129,8 @@
 .token-amount-donate {
     color: hotpink;
 }
+
+.action-balance,
+.token-amount-balance {
+    color: gold;
+}
