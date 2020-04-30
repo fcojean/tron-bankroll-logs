@@ -5,12 +5,6 @@
  */
 ; /* the semi-colon before function invocation is a safety net against concatenated scripts and/or other plugins which may not be closed properly. */
 (function ($, window, document, undefined) {
-    /* Default plugin options value */
-    const defaultOptions = {
-        balanceReportLimit: 10,
-        particles: true,
-        firstRenderFetchEventNumber: 3
-    };
     /* Plugin name */
     const pluginName = "bankroll_logs";
     /* Value that determine the speed of the typing effect in the command line section. */
@@ -800,6 +794,15 @@
         }
     };
 
+    /* Default plugin options value */
+    const defaultOptions = {
+        balanceReportLimit: 10,
+        particles: true,
+        firstRenderFetchEventNumber: 3,
+        custodyWalletAddressInHexFormat: "0x976b2df04558bc6b3997b143c02c13614dc5f5a4",
+        contractsConfig: CONTRACTS_CONFIG
+    };
+
     /**
      * Plugin constructor
      */
@@ -1007,7 +1010,7 @@
                 const self = this;
 
                 /* Loop on contract configuration to loop on events */
-                for (let [contractAddress, contractConfig] of Object.entries(CONTRACTS_CONFIG)) {
+                for (let [contractAddress, contractConfig] of Object.entries(this.options.contractsConfig)) {
                     (async function (contractAddress, contractConfig) {
                         await self.fetchContractEventsFirstRender(contractAddress, contractConfig);
                     })(contractAddress, contractConfig);
@@ -1051,13 +1054,13 @@
 
                 const self = this;
                 /* Loop on each contract config */
-                for (let [contractAddress, contractConfig] of Object.entries(CONTRACTS_CONFIG)) {
+                for (let [contractAddress, contractConfig] of Object.entries(this.options.contractsConfig)) {
                     (async function (contractAddress, contractConfig) {
                         try {
                             /* Get contract instance */
                             let contractInstance = await self.tronWebClient.contract().at(contractAddress);
                             /* Loop on each contract event config */
-                            for (let [eventName, eventConfig] of Object.entries(CONTRACTS_CONFIG[contractAddress].events)) {
+                            for (let [eventName, eventConfig] of Object.entries(self.options.contractsConfig[contractAddress].events)) {
                                 (function (eventName, eventConfig) {
                                     /* Do not process virtual and hidden event */
                                     if (!eventConfig.virtual && !eventConfig.hide) {
@@ -1083,7 +1086,7 @@
              * @param {*} contractAddress Contract address to fetch balance from.
              */
             fetchContractBalance: async function (contractAddress) {
-                let contractConfig = CONTRACTS_CONFIG[contractAddress];
+                let contractConfig = this.options.contractsConfig[contractAddress];
 
                 if (contractConfig.balance.show) {
                     /* Contract which need to call a specific method to get the balance */
@@ -1190,7 +1193,7 @@
              * @param {*} event Event that we want to know if it must be split or not.
              */
             mustSplitEvent: function (event) {
-                return CONTRACTS_CONFIG[event.contract].events[event.name].splitEventList;
+                return this.options.contractsConfig[event.contract].events[event.name].splitEventList;
             },
 
             /**
@@ -1215,7 +1218,7 @@
              * @param {*} event An event.
              */
             hideEvent: function (event) {
-                return CONTRACTS_CONFIG[event.contract].events[event.name].hide;
+                return this.options.contractsConfig[event.contract].events[event.name].hide;
             },
 
             /**
@@ -1225,10 +1228,10 @@
             hideEventOnBusinessRules: function (event) {
                 let result = false;
 
-                // Daily+ contract
+                /* Daily+ contract */
                 if (event.contract === "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn") {
                     switch (event.name) {
-                        // if BNKR Depot distribution is < 1 TRX, hide it.
+                        /* if BNKR Depot distribution is < 1 TRX, hide it. */
                         case "onDistributionBNKRDepot":
                             if (event.result[1] < 10e5) { // 1 TRX in SUN
                                 result = true;
@@ -1236,20 +1239,37 @@
                             break;
                     }
                 }
-                // BNKR token contract
+                /* BNKR token contract */
                 else if (event.contract === "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK") {
                     switch (event.name) {
-                        // When tokens come from the ZERO address (0x0000000000000000000000000000000000000000 or T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
-                        // they are mined, not staked, hide it.
+                        /* When tokens come from the ZERO address (0x0000000000000000000000000000000000000000 or T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
+                         * they are mined, not staked, hide it.
+                         */
                         case "Transfer":
                             if (event.result[0] === "0x0000000000000000000000000000000000000000") {
                                 result = true;
                             }
                             break;
-                            // When mined amount is under 0.01 BNKR, hide it.
-                            // Avoid to display "xxxx...xxxx mined 0.00 BNKR".
+                            /* When mined amount is under 0.01 BNKR, hide it.
+                             * Avoid to display "xxxx...xxxx mined 0.00 BNKR".
+                             */
                         case "Mint":
                             if (event.result[1] < 10e3) {
+                                result = true;
+                            }
+                            /* Hide mint event from custody address. */
+                            else if (event.result[0] === this.options.custodyWalletAddressInHexFormat) { 
+                                result = true;
+                            }
+                            break;
+                    }
+                }
+                /* Save contract */
+                else if(event.contract === "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ") {
+                    switch (event.name) {
+                        /* Hide claim event from Bankroll custody address. */
+                        case "onClaim":
+                            if (event.result[0] === this.options.custodyWalletAddressInHexFormat) {
                                 result = true;
                             }
                             break;
@@ -1376,7 +1396,7 @@
              * @param {*} event An event.
              */
             buildLogBody: function (logLine, event) {
-                const contractConfig = CONTRACTS_CONFIG[event.contract];
+                const contractConfig = this.options.contractsConfig[event.contract];
                 const eventConfig = contractConfig.events[event.name];
 
                 // Link to the transaction on tronscan

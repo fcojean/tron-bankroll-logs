@@ -74,7 +74,8 @@ Give an height property to the container div element.
 | balanceReportLimit          | Number  | 10              | Displayed contract event number before reporting contract balances. |
 | particles                   | Boolean | true            | Enable the particle effect in terminal background. |
 | firstRenderFetchEventNumber | Number  | 3               | Event number to fetch from blockchain for the first render. |
-| contractsConfiguration      | Object  | See source code | **(Not implemented yet)** Allow to provide a custom contract configuration object. | 
+| custodyWalletAddressInHexFormat | String  | 0x976b2df04558bc6b3997b143c02c13614dc5f5a4 | Bankroll custody wallet address. |
+| contractsConfig      | Object  | See in source code, look for CONTRACTS_CONFIG constant | Allow to provide a custom contracts configuration object. | 
 
 ### Example :
 
@@ -168,7 +169,7 @@ Give an height property to the container div element.
 
 | Event name           | Action                | Hidden                                      |
 | -------------------- | --------------------- | ------------------------------------------- |
-| Mint                 | Token are mined       | Yes if BNKR mined amount is under 0.01 BNKR |
+| Mint                 | Token are mined       | Yes if BNKR mined amount is under 0.01 BNKR or if from custody address. |
 | MintFinished         |                       | Yes                                         |
 | OwnershipTransferred | Transferred ownership | Yes                                         |
 | Approval             | Approve staking       | Yes                                         |
@@ -192,7 +193,7 @@ Give an height property to the container div element.
 | ------------------------- | ---------------------------- | ------ |
 | onFreeze                  | Deposit                      |        |
 | onUnfreeze                | Withdraw                     |        |
-| onClaim                   | Claim                        |        |
+| onClaim                   | Claim                        | Yes if from custody address.       |
 | onBalance                 | Customer balance             | Yes    |
 | onContractBalance         | Contract balance             | Yes    |
 | WhitelistedAddressAdded   | Add a whitelisted address    | Yes    |
