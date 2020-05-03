@@ -986,7 +986,8 @@
         particles: true,
         firstRenderFetchEventNumber: 3,
         custodyWalletAddressInHexFormat: "0x976b2df04558bc6b3997b143c02c13614dc5f5a4",
-        contractsConfig: CONTRACTS_CONFIG
+        contractsConfig: CONTRACTS_CONFIG,
+        maxTerminalLogNumber: 100
     };
 
     /**
@@ -1491,7 +1492,7 @@
              * @param {*} log a log object.
              */
             displayEventWithoutEffect: function (log) {
-                $("#" + this.element.id + " .event-terminal-logs").prepend(log.logLine);
+                this.addLogToTerminal(log.logLine);
                 this.noDisplayEffectEntryNumber++;
                 this.isDisplayInProgress = false;
             },
@@ -1511,9 +1512,24 @@
                     }, COMMAND_LINE_TYPE_SPEED);
                 } else {
                     this.updateLogsTimestamp();
-                    $("#" + this.element.id + " .event-terminal-logs").prepend(logLine);
+                    this.addLogToTerminal(logLine);
                     $("#" + this.element.id + " .event-terminal-command-line-write").text(COMMAND_LINE_SCANNING_TRANSACTION);
                     this.isDisplayInProgress = false;
+                }
+            },
+
+            /**
+             * Add a log line to the terminal
+             * @param {*} logLine 
+             */
+            addLogToTerminal: function (logLine) {
+                /* Add new line at terminal beginning. */
+                $("#" + this.element.id + " .event-terminal-logs").prepend(logLine);
+
+                /* Remove last line if maxTerminalLogNumber is reach. */
+                let terminalChildrenDomElement = $("#" + this.element.id + " .event-terminal-logs > .event-terminal-log");
+                if(terminalChildrenDomElement.length > this.options.maxTerminalLogNumber) {
+                    terminalChildrenDomElement.last().remove();
                 }
             },
 

@@ -69,23 +69,21 @@ Give an height property to the container div element.
 
 ## Plugin options
 
-| Option                      | Type    | Default value   | Description |
-| --------------------------- | ------- | --------------- | ----------- |
-| balanceReportLimit          | Number  | 10              | Displayed contract event number before reporting contract balances. |
-| particles                   | Boolean | true            | Enable the particle effect in terminal background. |
-| firstRenderFetchEventNumber | Number  | 3               | Event number to fetch from blockchain for the first render. |
+| Option                          | Type    | Default value   | Description |
+| ------------------------------- | ------- | --------------- | ----------- |
+| balanceReportLimit              | Number  | 10              | Displayed contract event number before reporting contract balances. |
+| particles                       | Boolean | true            | Enable the particle effect in terminal background. |
+| firstRenderFetchEventNumber     | Number  | 3               | Event number to fetch from blockchain for the first render. |
 | custodyWalletAddressInHexFormat | String  | 0x976b2df04558bc6b3997b143c02c13614dc5f5a4 | Bankroll custody wallet address. |
-| contractsConfig      | Object  | See in source code, look for CONTRACTS_CONFIG constant | Allow to provide a custom contracts configuration object. | 
+| contractsConfig                 | Object  | See in source code, look for CONTRACTS_CONFIG constant | Allow to provide a custom contracts configuration object. |
+| maxTerminalLogNumber       | Number  | 100             | Maximum log number displayed in the terminal |
+ 
 
 ### Example :
 
 ```
 <script>$("#logs-with-particles").bankroll_logs({balanceReportLimit:5, particles:false});</script>
 ```
-
-## Contract configuration
-
-### splitEventList
 
 ## Contracts information
 
