@@ -791,6 +791,192 @@
                     ]
                 }
             }
+        },
+        "TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj": {
+            "name": "Swap",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
+            "events": {
+                "onTokenPurchase": {
+                    "action": {
+                        "name": "BUY",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "buyer"
+                        },
+                        {
+                            "type": "string",
+                            "content": "bought"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "token_amount",
+                            "class": "token-amount-buy",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTrxPurchase": {
+                    "action": {
+                        "name": "SELL",
+                        "class": "action-sell"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "buyer"
+                        },
+                        {
+                            "type": "string",
+                            "content": "sold"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "token_amount",
+                            "class": "token-amount-sell",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onAddLiquidity": {
+                    "action": {
+                        "name": "ADD LIQUIDITY",
+                        "class": "action-add-liquidity"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "provider"
+                        },
+                        {
+                            "type": "string",
+                            "content": "added"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "trx_amount",
+                            "class": "token-amount-add-liquidity"
+                        },
+                        {
+                            "type": "string",
+                            "content": "and"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "token_amount",
+                            "class": "token-amount-add-liquidity"
+                        },
+                        {
+                            "type": "string",
+                            "content": "to liquidity pool",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onRemoveLiquidity": {
+                    "action": {
+                        "name": "REMOVE LIQUIDITY",
+                        "class": "action-remove-liquidity"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "provider"
+                        },
+                        {
+                            "type": "string",
+                            "content": "removed"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "trx_amount",
+                            "class": "token-amount-remove-liquidity"
+                        },
+                        {
+                            "type": "string",
+                            "content": "and"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "token_amount",
+                            "class": "token-amount-remove-liquidity"
+                        },
+                        {
+                            "type": "string",
+                            "content": "from liquidity pool",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onLiquidity": {
+                    "hide": true
+                },
+                "onContractBalance": {
+                    "hide": true
+                },
+                "onPrice": {
+                    "action": {
+                        "name": "PRICE",
+                        "class": "action-price"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "1 BNKR",
+                            "class": "token-amount-price"
+                        },
+                        {
+                            "type": "string",
+                            "content": "price is"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "0",
+                            "class": "token-amount-price",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onSummary": {
+                    "hide": true
+                },
+                "Transfer": {
+                    "hide": true
+                },
+                "Approval": {
+                    "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
+                }
+            }
         }
     };
 
@@ -1258,14 +1444,14 @@
                                 result = true;
                             }
                             /* Hide mint event from custody address. */
-                            else if (event.result[0] === this.options.custodyWalletAddressInHexFormat) { 
+                            else if (event.result[0] === this.options.custodyWalletAddressInHexFormat) {
                                 result = true;
                             }
                             break;
                     }
                 }
                 /* Save contract */
-                else if(event.contract === "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ") {
+                else if (event.contract === "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ") {
                     switch (event.name) {
                         /* Hide claim event from Bankroll custody address. */
                         case "onClaim":
@@ -1449,7 +1635,7 @@
                             if (!fragment.noEndingSpace) {
                                 message += " ";
                             }
-                            logLine.append($("<span />").addClass("event-terminal-log-message").html(message));
+                            logLine.append($("<span />").addClass("event-terminal-log-message").addClass(fragment.class).html(message));
                             break;
                         case "value":
                             let value = event.result[fragment.content];

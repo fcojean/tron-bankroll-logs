@@ -107,14 +107,24 @@
 }
 
 .action-freeroll,
-.token-amount-freeroll,
+.token-amount-freeroll {
+    color: lightseagreen;
+}
+
 .action-claim,
 .token-amount-claim {
+    color: limegreen;
+}
+
+.action-add-liquidity,
+.token-amount-add-liquidity {
     color: greenyellow;
 }
 
 .action-withdraw,
-.token-amount-withdraw {
+.token-amount-withdraw,
+.action-remove-liquidity,
+.token-amount-remove-liquidity {
     color: darkred;
 }
 
@@ -131,6 +141,8 @@
 }
 
 .action-balance,
-.token-amount-balance {
+.token-amount-balance,
+.action-price,
+.token-amount-price {
     color: gold;
 }

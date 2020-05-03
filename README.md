@@ -91,7 +91,6 @@ Give an height property to the container div element.
 
 ### Boost contract information
 
-* Event fetch URL : https://api.tronex.io/events/TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq
 * TronScan page : https://tronscan.org/#/contract/TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq/code
 
 #### Events
@@ -111,7 +110,6 @@ Give an height property to the container div element.
 
 ### Credits contract information
 
-* Event fetch URL : https://api.tronex.io/events/TUTik4srgKuzgXoL4KfV75foQbYuP8SirY
 * TronScan page : https://tronscan.org/#/contract/TUTik4srgKuzgXoL4KfV75foQbYuP8SirY/code
 
 #### Events
@@ -128,7 +126,6 @@ Give an height property to the container div element.
 
 ### Daily+ contract information
 
-* Event fetch URL : https://api.tronex.io/events/THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn
 * TronScan page : https://tronscan.org/#/contract/THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn/code
 
 #### Events
@@ -149,7 +146,6 @@ Give an height property to the container div element.
 
 ### Air contract information
 
-* Event fetch URL : https://api.tronex.io/events/TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn
 * TronScan page : https://tronscan.org/#/contract/TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn/code
 
 #### Events
@@ -162,7 +158,6 @@ Give an height property to the container div element.
 
 ### BNKR token contract information
 
-* Event fetch URL : https://api.tronex.io/events/TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK
 * TronScan page : https://tronscan.org/#/contract/TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK/code
 
 #### Events
@@ -183,8 +178,6 @@ Give an height property to the container div element.
 
 ### Save contract information
 
-
-* Event fetch URL : https://api.tronex.io/events/THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ
 * TronScan page : https://tronscan.org/#/contract/THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ/code
 
 #### Events
@@ -200,3 +193,21 @@ Give an height property to the container div element.
 | WhitelistedAddressRemoved | Remove a whitelisted address | Yes    |
 | OwnershipTransferred      | Transferred ownership        | Yes    |
 
+### Swap contract information
+
+* TronScan page : https://tronscan.org/#/contract/TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj/code
+
+#### Events
+
+| Event name        | Action                    | Hidden |
+| ----------------- | ------------------------- | ------ |
+| onTokenPurchase   | Buy                       |        |
+| onTrxPurchase     | Sell                      |        |
+| onAddLiquidity    | Add liquidity             |        |
+| onRemoveLiquidity | Remove liquidity          |        |
+| onLiquidity       | Liquidity                 | Yes    |
+| onContractBalance | Contract balance          | Yes    |
+| onPrice           | Price info                |        |
+| onSummary         | Summary event             | Yes    |
+| Transfer          | Transfer fund             | Yes    |
+| Approval          | Enable player on contract | Yes    |
