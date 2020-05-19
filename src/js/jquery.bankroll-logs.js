@@ -975,6 +975,25 @@
                             "noEndingSpace": true
                         }
                     ]
+                },
+                "logSwapVolume": {
+                    "virtual": true,
+                    "action": {
+                        "name": "VOLUME",
+                        "class": "action-volume"
+                    },
+                    "messageFragments": [{
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "totalTokenVolume",
+                            "class": "token-amount-volume"
+                        },
+                        {
+                            "type": "string",
+                            "content": "swapped in the last 24 hours",
+                            "noEndingSpace": true
+                        }
+                    ]
                 }
             }
         }
@@ -983,11 +1002,21 @@
     /* Default plugin options value */
     const defaultOptions = {
         balanceReportLimit: 10,
+        logContractBalanceEventName: "logContractBalance",
+        swapVolumeReportLimit: 10,
+        swapBuyEventName: "onTokenPurchase",
+        swapSellEventName: "onTrxPurchase",
+        swapContractAddress: "TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj",
+        logSwapVolumeEventName: "logSwapVolume",
         particles: true,
         firstRenderFetchEventNumber: 3,
         custodyWalletAddressInHexFormat: "0x976b2df04558bc6b3997b143c02c13614dc5f5a4",
         contractsConfig: CONTRACTS_CONFIG,
-        maxTerminalLogNumber: 100
+        maxTerminalLogNumber: 100,
+        dailyPlusContractAddress: "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn",
+        bnkrTokenContractAddress: "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK",
+        saveContractAddress: "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ",
+        onDistributionBNKRDepotEventName: "onDistributionBNKRDepot"
     };
 
     /**
@@ -1012,13 +1041,16 @@
                 this.noDisplayEffectEntryNumber = 0;
                 /* Init display without effect counter */
                 this.displayWithoutEffectMaxEntry = 0;
-                /* Balance limit report counter and flag */
+                /* Balance limit report counter */
                 this.balanceReportCounter = {};
-                this.balanceReportFlag = [];
+                /* Swap volume limit report counter */
+                this.swapVolumeReportCounter = 0;
                 /* Set up TronWeb */
                 this.initTronWebClient();
                 /* Fetch initial data */
                 this.loadEventsFirstRender();
+                /* Fetch swap volume on first render */
+                this.retrieveSwapVolume(this.options.swapContractAddress, true);
                 /* Build terminal HTML structure */
                 this.buildTerminalHtml(this.element);
                 /* Load particle background or not */
@@ -1200,6 +1232,7 @@
                 for (let [contractAddress, contractConfig] of Object.entries(this.options.contractsConfig)) {
                     (async function (contractAddress, contractConfig) {
                         await self.fetchContractEventsFirstRender(contractAddress, contractConfig);
+
                     })(contractAddress, contractConfig);
                 }
             },
@@ -1232,6 +1265,122 @@
                             console.error("error:", error);
                         });
                 }
+            },
+            /**
+             * Get Swap last 24H volume and send to the display queue.
+             * @param {*} contractAddress Swap contract address
+             * @param {*} firstRender Enable or disable the typing display effect
+             */
+            retrieveSwapVolume: async function (contractAddress, firstRender) {
+                let events = await this.fetchSwapLast24HBuyAndSellEvents(contractAddress);
+                let swapVolumes = this.computeSwapLast24HVolume(events);
+
+                /* Generate swapVolume event */
+                let event = this.generateLogSwapVolumeEvent(swapVolumes, contractAddress);
+                /* Push event in display queue */
+                this.addEventToDisplayQueue(event, firstRender);
+            },
+
+            /**
+             * Show the last 24 hours Swap BNKR volume.
+             * @param {*} event Event triggered
+             * @param {*} firstRender true if firstRender phase.
+             */
+            showSwapVolume: async function (event, firstRender) {
+                if (!firstRender && event.contract === this.options.swapContractAddress) {
+                    /* Handle swapVolumeReportLimit flag to display Swap volume when needed */
+                    if (event.name !== this.options.logSwapVolumeEventName) {
+                        this.swapVolumeReportCounter++;
+                        /* Show swap volume when needed */
+                        if (this.swapVolumeReportCounter % this.options.swapVolumeReportLimit == 0) {
+                            /* Retrieve swap volume */
+                            await this.retrieveSwapVolume(event.contract, firstRender);
+                        }
+                    }
+                }
+            },
+
+            /**
+             * Fetch last 24 hours buy and sell events.
+             * @param {*} contractAddress 
+             */
+            fetchSwapLast24HBuyAndSellEvents: async function (contractAddress) {
+                /* Compute last 24H timestamp */
+                let last24hTimestamp = moment().subtract(1, "days").utc().valueOf();
+
+                /* Fetch buy events */
+                let buyEventFilter = {
+                    eventName: this.options.swapBuyEventName,
+                    onlyConfirmed: true,
+                    size: 100
+                };
+                let buyEvents = await this.tronWebClient.getEventResult(contractAddress, buyEventFilter);
+                let getNextChunk = true;
+                /* Iterate on event history until last 24H timestamp is reach. */
+                while (buyEvents.length > 0 && buyEvents[buyEvents.length - 1].fingerprint && getNextChunk) {
+                    buyEventFilter.fingerprint = buyEvents[buyEvents.length - 1].fingerprint;
+                    let buyEventsChunk = await this.tronWebClient.getEventResult(contractAddress, buyEventFilter);
+                    if (!buyEventsChunk[buyEventsChunk.length - 1].timestamp < last24hTimestamp) {
+                        getNextChunk = false;
+                    }
+                    buyEvents = buyEvents.concat(buyEventsChunk);
+                }
+
+                /* Fetch sell events */
+                let sellEventFilter = {
+                    eventName: this.options.swapSellEventName,
+                    onlyConfirmed: true,
+                    size: 100
+                };
+                let sellEvents = await this.tronWebClient.getEventResult(contractAddress, sellEventFilter);
+                getNextChunk = true;
+                /* Iterate on event history until last 24H timestamp is reach. */
+                while (sellEvents.length > 0 && sellEvents[sellEvents.length - 1].fingerprint && getNextChunk) {
+                    sellEventFilter.fingerprint = sellEvents[sellEvents.length - 1].fingerprint;
+                    let sellEventsChunk = await this.tronWebClient.getEventResult(contractAddress, sellEventFilter);
+                    if (!sellEventsChunk[sellEventsChunk.length - 1].timestamp < last24hTimestamp) {
+                        getNextChunk = false;
+                    }
+                    sellEvents = sellEvents.concat(sellEventsChunk);
+                }
+
+                /* Concat buy and sell events into one array. */
+                let allEvents = buyEvents.concat(sellEvents);
+                /* Filter events that are over the timestamp */
+                allEvents = _.filter(allEvents, function (event) {
+                    if (event.timestamp > last24hTimestamp) return event;
+                });
+
+                return allEvents;
+            },
+
+            /**
+             * Return a swapVolume object with Buy token volume, Sell token volume
+             * and Total token volume.
+             * Volume value are in SUN base.
+             * @param {*} events event list to compute.
+             */
+            computeSwapLast24HVolume: function (events) {
+                let swapVolumes = {
+                    "buyTokenVolume": 0,
+                    "sellTokenVolume": 0,
+                    "totalTokenVolume": 0
+                };
+
+                for (let event of events) {
+                    switch (event.name) {
+                        case this.options.swapBuyEventName:
+                            swapVolumes.buyTokenVolume += Number(event.result["token_amount"]);
+                            break;
+                        case this.options.swapSellEventName:
+                            swapVolumes.sellTokenVolume += Number(event.result["token_amount"]);
+                            break;
+                    }
+                }
+
+                swapVolumes.totalTokenVolume = swapVolumes.buyTokenVolume + swapVolumes.sellTokenVolume;
+
+                return swapVolumes;
             },
 
             /**
@@ -1333,6 +1482,8 @@
                             }
                             /* Show contract balance if needed */
                             await this.showContractBalance(event, firstRender);
+                            /* Show Swap contract volume if needed */
+                            await this.showSwapVolume(event, firstRender);
                         }
                     }
                 }
@@ -1358,8 +1509,8 @@
              * @param {*} event event data.
              * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
-            showContractBalance: function (event, firstRender) {
-                if (!firstRender && event.name !== "logContractBalance") {
+            showContractBalance: async function (event, firstRender) {
+                if (!firstRender && event.name !== this.options.logContractBalanceEventName) {
                     /* Handle balance report flag to display balance when needed */
                     if (!this.balanceReportCounter[event.contract]) {
                         this.balanceReportCounter[event.contract] = 1
@@ -1369,7 +1520,7 @@
                     /* Get balance when needed */
                     if (this.balanceReportCounter[event.contract] % this.options.balanceReportLimit == 0) {
                         /* Retrieve contract balance */
-                        this.fetchContractBalance(event.contract);
+                        await this.fetchContractBalance(event.contract);
                     }
                 }
             },
@@ -1416,10 +1567,10 @@
                 let result = false;
 
                 /* Daily+ contract */
-                if (event.contract === "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn") {
+                if (event.contract === this.options.dailyPlusContractAddress) {
                     switch (event.name) {
                         /* if BNKR Depot distribution is < 1 TRX, hide it. */
-                        case "onDistributionBNKRDepot":
+                        case this.options.onDistributionBNKRDepotEventName:
                             if (event.result[1] < 10e5) { // 1 TRX in SUN
                                 result = true;
                             }
@@ -1427,7 +1578,7 @@
                     }
                 }
                 /* BNKR token contract */
-                else if (event.contract === "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK") {
+                else if (event.contract === this.options.bnkrTokenContractAddress) {
                     switch (event.name) {
                         /* When tokens come from the ZERO address (0x0000000000000000000000000000000000000000 or T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb)
                          * they are mined, not staked, hide it.
@@ -1452,7 +1603,7 @@
                     }
                 }
                 /* Save contract */
-                else if (event.contract === "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ") {
+                else if (event.contract === this.options.saveContractAddress) {
                     switch (event.name) {
                         /* Hide claim event from Bankroll custody address. */
                         case "onClaim":
@@ -1528,7 +1679,7 @@
 
                 /* Remove last line if maxTerminalLogNumber is reach. */
                 let terminalChildrenDomElement = $("#" + this.element.id + " .event-terminal-logs > .event-terminal-log");
-                if(terminalChildrenDomElement.length > this.options.maxTerminalLogNumber) {
+                if (terminalChildrenDomElement.length > this.options.maxTerminalLogNumber) {
                     terminalChildrenDomElement.last().remove();
                 }
             },
@@ -1563,7 +1714,7 @@
             generateLogBalanceEvent: function (balance, contractAddress) {
                 let logBalanceEvent = {
                     contract: contractAddress,
-                    name: "logContractBalance",
+                    name: this.options.logContractBalanceEventName,
                     timestamp: moment().utc().valueOf()
                 };
                 logBalanceEvent.result = {
@@ -1571,6 +1722,28 @@
                 };
 
                 return logBalanceEvent;
+            },
+
+            /**
+             * Generate a virtual log swap volume event.
+             * Used to display swap volume.
+             * @param {*} swapVolumes Swap volumes object obtained from
+             * computeSwapLast24HVolume function.
+             * @param {*} contractAddress contract address.
+             */
+            generateLogSwapVolumeEvent: function (swapVolumes, contractAddress) {
+                let logEvent = {
+                    contract: contractAddress,
+                    name: "logSwapVolume",
+                    timestamp: moment().utc().valueOf()
+                };
+                logEvent.result = {
+                    "buyTokenVolume": swapVolumes.buyTokenVolume,
+                    "sellTokenVolume": swapVolumes.sellTokenVolume,
+                    "totalTokenVolume": swapVolumes.totalTokenVolume
+                };
+
+                return logEvent;
             },
 
             /**

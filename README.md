@@ -72,12 +72,22 @@ Give an height property to the container div element.
 | Option                          | Type    | Default value   | Description |
 | ------------------------------- | ------- | --------------- | ----------- |
 | balanceReportLimit              | Number  | 10              | Displayed contract event number before reporting contract balances. |
+| logContractBalanceEventName              | String  | logContractBalance | virtual log contract balance event name use to log contract balance |
+| swapVolumeReportLimit              | Number  | 10              | Displayed contract event number before reporting BNKR swapped volume |
+| swapContractAddress              | String  | TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj              | Swap contract address |
+| swapBuyEventName              | String  | onTokenPurchase              | Swap Buy event name |
+| swapSellEventName              | String  | onTrxPurchase              | Swap Sell event name |
+| logSwapVolumeEventName              | String  | logSwapVolume              | Swap log swap volume virtual event name use to log swap volume |
 | particles                       | Boolean | true            | Enable the particle effect in terminal background. |
 | firstRenderFetchEventNumber     | Number  | 3               | Event number to fetch from blockchain for the first render. |
 | custodyWalletAddressInHexFormat | String  | 0x976b2df04558bc6b3997b143c02c13614dc5f5a4 | Bankroll custody wallet address. |
 | contractsConfig                 | Object  | See in source code, look for CONTRACTS_CONFIG constant | Allow to provide a custom contracts configuration object. |
 | maxTerminalLogNumber       | Number  | 100             | Maximum log number displayed in the terminal |
- 
+| dailyPlusContractAddress       | String  | THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn             | Daily+ contract address |
+| bnkrTokenContractAddress       | String  | TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK             | BNKR token contract address |
+| saveContractAddress       | String  | THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ             | Save contract address |
+| onDistributionBNKRDepotEventName       | String  | onDistributionBNKRDepot             | onDistributionBNKRDepot virtual event name |
+
 
 ### Example :
 
@@ -91,7 +101,7 @@ Give an height property to the container div element.
 
 * TronScan page : https://tronscan.org/#/contract/TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq/code
 
-#### Events
+#### Contract Events
 
 | Event name           | Action                | Hidden |
 | -------------------- | --------------------- | ------ |
@@ -104,13 +114,17 @@ Give an height property to the container div element.
 | onDonation           | Donate                |        |
 | OwnershipTransferred | Transfer ownership    | Yes    |
 
+#### Specific virtual events
 
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
 
 ### Credits contract information
 
 * TronScan page : https://tronscan.org/#/contract/TUTik4srgKuzgXoL4KfV75foQbYuP8SirY/code
 
-#### Events
+#### Contract Events
 
 | Event name           | Action                | Hidden |
 | -------------------- | --------------------- | ------ |
@@ -122,11 +136,17 @@ Give an height property to the container div element.
 | onDonation           | Donate                |        |
 | OwnershipTransferred | Transferred ownership | Yes    |
 
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
 ### Daily+ contract information
 
 * TronScan page : https://tronscan.org/#/contract/THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn/code
 
-#### Events
+#### Contract Events
 
 | Event name           | Action                            | Hidden |
 | -------------------- | --------------------------------- | ------ |
@@ -141,12 +161,17 @@ Give an height property to the container div element.
 | onDistribution       | Distribute payout (Profit, depot) |        |
 | OwnershipTransferred | Transferred ownership             | Yes    |
 
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
 
 ### Air contract information
 
 * TronScan page : https://tronscan.org/#/contract/TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn/code
 
-#### Events
+#### Contract Events
 
 | Event name           | Action                | Hidden |
 | -------------------- | --------------------- | ------ |
@@ -154,11 +179,17 @@ Give an height property to the container div element.
 | onRoundSummary       | Win                   |        |
 | OwnershipTransferred | Transferred ownership | Yes    |
 
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
 ### BNKR token contract information
 
 * TronScan page : https://tronscan.org/#/contract/TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK/code
 
-#### Events
+#### Contract Events
 
 | Event name           | Action                | Hidden                                      |
 | -------------------- | --------------------- | ------------------------------------------- |
@@ -174,11 +205,17 @@ Give an height property to the container div element.
 
 > When tokens are sent to the stake address (TXwYAQ9y9r8u4E2o6KrdeELMr5x6NFekge) they are staked.
 
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
 ### Save contract information
 
 * TronScan page : https://tronscan.org/#/contract/THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ/code
 
-#### Events
+#### Contract Events
 
 | Event name                | Action                       | Hidden |
 | ------------------------- | ---------------------------- | ------ |
@@ -191,11 +228,17 @@ Give an height property to the container div element.
 | WhitelistedAddressRemoved | Remove a whitelisted address | Yes    |
 | OwnershipTransferred      | Transferred ownership        | Yes    |
 
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
 ### Swap contract information
 
 * TronScan page : https://tronscan.org/#/contract/TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj/code
 
-#### Events
+#### Contract Events
 
 | Event name        | Action                    | Hidden |
 | ----------------- | ------------------------- | ------ |
@@ -209,3 +252,10 @@ Give an height property to the container div element.
 | onSummary         | Summary event             | Yes    |
 | Transfer          | Transfer fund             | Yes    |
 | Approval          | Enable player on contract | Yes    |
+
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+| logSwapVolume      | Allow to display last 24H BNKR swapped volume |

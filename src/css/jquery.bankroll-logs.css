@@ -143,6 +143,8 @@
 .action-balance,
 .token-amount-balance,
 .action-price,
-.token-amount-price {
+.token-amount-price,
+.action-volume,
+.token-amount-volume {
     color: gold;
 }
