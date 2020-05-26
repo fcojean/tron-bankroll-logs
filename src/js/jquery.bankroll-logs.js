@@ -984,8 +984,8 @@
                     },
                     "messageFragments": [{
                             "type": "tokenAmount",
-                            "token": "BNKR",
-                            "content": "totalTokenVolume",
+                            "token": "TRX",
+                            "content": "totalTRXVolume",
                             "class": "token-amount-volume"
                         },
                         {
@@ -1355,30 +1355,30 @@
             },
 
             /**
-             * Return a swapVolume object with Buy token volume, Sell token volume
-             * and Total token volume.
+             * Return a swapVolume object with Buy TRX volume, Sell TRX volume
+             * and Total TRX volume.
              * Volume value are in SUN base.
              * @param {*} events event list to compute.
              */
             computeSwapLast24HVolume: function (events) {
                 let swapVolumes = {
-                    "buyTokenVolume": 0,
-                    "sellTokenVolume": 0,
-                    "totalTokenVolume": 0
+                    "buyTRXVolume": 0,
+                    "sellTRXVolume": 0,
+                    "totalTRXVolume": 0
                 };
 
                 for (let event of events) {
                     switch (event.name) {
                         case this.options.swapBuyEventName:
-                            swapVolumes.buyTokenVolume += Number(event.result["token_amount"]);
+                            swapVolumes.buyTRXVolume += Number(event.result["trx_amount"]);
                             break;
                         case this.options.swapSellEventName:
-                            swapVolumes.sellTokenVolume += Number(event.result["token_amount"]);
+                            swapVolumes.sellTRXVolume += Number(event.result["trx_amount"]);
                             break;
                     }
                 }
 
-                swapVolumes.totalTokenVolume = swapVolumes.buyTokenVolume + swapVolumes.sellTokenVolume;
+                swapVolumes.totalTRXVolume = swapVolumes.buyTRXVolume + swapVolumes.sellTRXVolume;
 
                 return swapVolumes;
             },
@@ -1738,9 +1738,9 @@
                     timestamp: moment().utc().valueOf()
                 };
                 logEvent.result = {
-                    "buyTokenVolume": swapVolumes.buyTokenVolume,
-                    "sellTokenVolume": swapVolumes.sellTokenVolume,
-                    "totalTokenVolume": swapVolumes.totalTokenVolume
+                    "buyTRXVolume": swapVolumes.buyTRXVolume,
+                    "sellTRXVolume": swapVolumes.sellTRXVolume,
+                    "totalTRXVolume": swapVolumes.totalTRXVolume
                 };
 
                 return logEvent;
