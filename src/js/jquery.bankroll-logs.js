@@ -408,7 +408,7 @@
                             "type": "tokenAmount",
                             "token": "TRX",
                             "content": "2",
-                            "class": "token-amount-withdraw"
+                            "class": "token-amount-transfer"
                         },
                         {
                             "type": "string",
@@ -1105,6 +1105,198 @@
                         {
                             "type": "tokenAmount",
                             "token": "BNKR",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
+                }
+            }
+        },
+        "TWkuzBQqzJpQFYoX4DXzMeswgeAqH7EkX2": {
+            "name": "Credits v2",
+            "balance": {
+                "show": true,
+                "token": "TRX"
+            },
+            "events": {
+                "onLeaderBoard": {
+                    "hide": true
+                },
+                "onTokenPurchase": {
+                    "action": {
+                        "name": "BUY",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "bought"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "incomingtrx",
+                            "class": "token-amount-buy",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTokenSell": {
+                    "action": {
+                        "name": "SELL",
+                        "class": "action-sell"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "sold"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "tokensBurned",
+                            "class": "token-amount-sell",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onReinvestment": {
+                    "hide": true
+                },
+                "onWithdraw": {
+                    "action": {
+                        "name": "WITHDRAW",
+                        "class": "action-withdraw"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "withdrew"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "trxWithdrawn",
+                            "class": "token-amount-withdraw",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onClaim": {
+                    "action": {
+                        "name": "CLAIM",
+                        "class": "action-claim"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "claimed"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "tokens",
+                            "class": "token-amount-claim",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTransfer": {
+                    "action": {
+                        "name": "TRANSFER",
+                        "class": "action-transfer"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "from"
+                        },
+                        {
+                            "type": "string",
+                            "content": "transferred"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "tokens",
+                            "class": "token-amount-transfer"
+                        },
+                        {
+                            "type": "string",
+                            "content": "to"
+                        },
+                        {
+                            "type": "address",
+                            "content": "to",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onBuyBack": {
+                    "action": {
+                        "name": "BUY BACK",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "Contract bought back"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "tokenAmount",
+                            "class": "token-amount-buy"
+                        },
+                        {
+                            "type": "string",
+                            "content": "for"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
+                            "content": "trxAmount",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onBalance": {
+                    "hide": true
+                },
+                "onDonation": {
+                    "hide": true
+                },
+                "OwnershipTransferred": {
+                    "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "TRX",
                             "content": "balance",
                             "class": "token-amount-balance"
                         },

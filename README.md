@@ -285,3 +285,30 @@ Give an height property to the container div element.
 | Event name         | Action                                        |
 | ------------------ | --------------------------------------------- |
 | logContractBalance | Log contract balance                          |
+
+### Credits v2 contract information
+
+* TronScan page : https://tronscan.org/#/contract/TWkuzBQqzJpQFYoX4DXzMeswgeAqH7EkX2/code
+
+#### Contract Events
+
+| Event name           | Action                 | Hidden |
+| ---------------------| ---------------------- | ------ |
+| onLeaderBoard        |                        | Yes    |
+| onTokenPurchase      | Buy                    |        |
+| onTokenSell          | Sell                   |        |
+| onReinvestment       | Roll                   | Yes    |
+| onWithdraw           | Withdraw               |        |
+| onClaim              | Claim BNKR dividends   |        |
+| onTransfer           | Transfer fund          |        |
+| onBuyBack            | Contract buy back BNKR |        |
+| onBalance            | Contract balance       | Yes    |
+| onDonation           |                        | Yes    |
+| OwnershipTransferred | Transferred ownership  | Yes    |
+
+
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
