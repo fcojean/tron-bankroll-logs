@@ -259,3 +259,29 @@ Give an height property to the container div element.
 | ------------------ | --------------------------------------------- |
 | logContractBalance | Log contract balance                          |
 | logSwapVolume      | Allow to display last 24H BNKR swapped volume |
+
+### Stack contract information
+
+* TronScan page : https://tronscan.org/#/contract/TNbpnzNg2quViNYDDBUgvBuYofzkJvy3Aw/code
+
+#### Contract Events
+
+| Event name      | Action           | Hidden |
+| --------------- | ---------------- | ------ |
+| onLeaderBoard   |                  | Yes    |
+| onTokenPurchase | Buy              |        |
+| onTokenSell     | Sell             |        |
+| onReinvestment  | Roll             | Yes    |
+| onWithdraw      | Withdraw         |        |
+| onClaim         |                  | Yes    |
+| onTransfer      | Transfer fund    | Yes    |
+| onBuyBack       |                  | Yes    |
+| onBalance       | Contract balance | Yes    |
+| onDonation      |                  | Yes    |
+
+
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |

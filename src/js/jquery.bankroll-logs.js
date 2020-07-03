@@ -996,6 +996,126 @@
                     ]
                 }
             }
+        },
+        "TNbpnzNg2quViNYDDBUgvBuYofzkJvy3Aw": {
+            "name": "Stack",
+            "balance": {
+                "show": true,
+                "token": "BNKR",
+                "method": "totalTokenBalance"
+            },
+            "events": {
+                "onLeaderBoard": {
+                    "hide": true
+                },
+                "onTokenPurchase": {
+                    "action": {
+                        "name": "BUY",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "bought"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "incomingtrx",
+                            "class": "token-amount-buy",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTokenSell": {
+                    "action": {
+                        "name": "SELL",
+                        "class": "action-sell"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "sold"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "tokensBurned",
+                            "class": "token-amount-sell",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onReinvestment": {
+                    "hide": true
+                },
+                "onWithdraw": {
+                    "action": {
+                        "name": "WITHDRAW",
+                        "class": "action-withdraw"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "withdrew"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "trxWithdrawn",
+                            "class": "token-amount-withdraw",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onClaim": {
+                    "hide": true
+                },
+                "onTransfer": {
+                    "hide": true
+                },
+                "onBuyBack": {
+                    "hide": true
+                },
+                "onBalance": {
+                    "hide": true
+                },
+                "onDonation": {
+                    "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "BNKR",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
+                }
+            }
         }
     };
 
