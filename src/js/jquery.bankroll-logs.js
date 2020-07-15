@@ -21,9 +21,14 @@
     const TRON_GRID_URL = "https://api.trongrid.io";
     /* Tron Default address */
     const TRON_DEFAULT_ADDRESS = "TVJ6njG5EpUwJt4N9xjTrqU5za78cgadS2";
+    /* Blockchain Tron */
+    const BLOCKCHAIN_TRON = "tron";
+    /* Blockchain Ethereum */
+    const BLOCKCHAIN_ETHEREUM = "ethereum";
     /* Contracts configuration */
     const CONTRACTS_CONFIG = {
         "TMmWrjjKGRCdoUzmv6YUaov7mwxy1swDnq": {
+            "blockchain": "tron",
             "name": "Boost",
             "balance": {
                 "show": true,
@@ -157,6 +162,7 @@
             }
         },
         "TUTik4srgKuzgXoL4KfV75foQbYuP8SirY": {
+            "blockchain": "tron",
             "name": "Credits",
             "balance": {
                 "show": true,
@@ -313,6 +319,7 @@
             }
         },
         "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn": {
+            "blockchain": "tron",
             "name": "Daily+",
             "balance": {
                 "show": true,
@@ -521,6 +528,7 @@
             }
         },
         "TBbdx9G136y5Bf3cPipYQPkq4iukNEvZMn": {
+            "blockchain": "tron",
             "name": "Air",
             "balance": {
                 "show": true,
@@ -598,6 +606,7 @@
             }
         },
         "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK": {
+            "blockchain": "tron",
             "name": "BNKR",
             "balance": {
                 "show": true,
@@ -680,6 +689,7 @@
             }
         },
         "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ": {
+            "blockchain": "tron",
             "name": "Save",
             "balance": {
                 "show": true,
@@ -793,6 +803,7 @@
             }
         },
         "TRXYvAoYvCqmvZWpFCTLc4rdQ7KxbLsUSj": {
+            "blockchain": "tron",
             "name": "Swap",
             "balance": {
                 "show": true,
@@ -998,7 +1009,8 @@
             }
         },
         "TNbpnzNg2quViNYDDBUgvBuYofzkJvy3Aw": {
-            "name": "Stack",
+            "blockchain": "tron",
+            "name": "Stack (BNKR)",
             "balance": {
                 "show": true,
                 "token": "BNKR",
@@ -1118,6 +1130,7 @@
             }
         },
         "TWkuzBQqzJpQFYoX4DXzMeswgeAqH7EkX2": {
+            "blockchain": "tron",
             "name": "Credits v2",
             "balance": {
                 "show": true,
@@ -1311,6 +1324,651 @@
         }
     };
 
+    const LIFE_ABI = [{
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "dividendsOf",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "claimsOf",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "swapCollector_",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_ethToSpend",
+            "type": "uint256"
+        }],
+        "name": "calculateTokensReceived",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "pure",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "statsOf",
+        "outputs": [{
+            "name": "",
+            "type": "uint256[16]"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "myDividends",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "totalClaims",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "sellPrice",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "pure",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "claim",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "totalTxs",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "totalEthBalance",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "buyFor",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "balanceOf",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "distributionInterval",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "myClaims",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "totalDeposits",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "swapAddress",
+        "outputs": [{
+            "name": "",
+            "type": "address"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "buyPrice",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "pure",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_tokensToSell",
+            "type": "uint256"
+        }],
+        "name": "calculateethReceived",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "myTokens",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "tokenAddress",
+        "outputs": [{
+            "name": "",
+            "type": "address"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "buy",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [{
+            "name": "_toAddress",
+            "type": "address"
+        }, {
+            "name": "_amountOfTokens",
+            "type": "uint256"
+        }],
+        "name": "transfer",
+        "outputs": [{
+            "name": "",
+            "type": "bool"
+        }],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "swapBalance_",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "dailyClaimEstimate",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "depotFlushSize",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "lastPayout",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "dividendBalance_",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "players",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [{
+            "name": "_amountOfTokens",
+            "type": "uint256"
+        }],
+        "name": "sell",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "donatePool",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "tokenBalance",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [{
+            "name": "_customerAddress",
+            "type": "address"
+        }],
+        "name": "dailyEstimate",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "balanceInterval",
+        "outputs": [{
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }, {
+        "constant": false,
+        "inputs": [],
+        "name": "reinvest",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "inputs": [{
+            "name": "_tokenAddress",
+            "type": "address"
+        }, {
+            "name": "_swapAddress",
+            "type": "address"
+        }],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    }, {
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "fallback"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "invested",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "tokens",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "soldTokens",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "claims",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onLeaderBoard",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "incomingeth",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "tokensMinted",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onTokenPurchase",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "tokensBurned",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "ethEarned",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onTokenSell",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "ethReinvested",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "tokensMinted",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onReinvestment",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "ethWithdrawn",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onWithdraw",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "customerAddress",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "tokens",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onClaim",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "from",
+            "type": "address"
+        }, {
+            "indexed": true,
+            "name": "to",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "tokens",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onTransfer",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false,
+            "name": "ethAmount",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "tokenAmount",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onBuyBack",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false,
+            "name": "balance",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onBalance",
+        "type": "event"
+    }, {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true,
+            "name": "from",
+            "type": "address"
+        }, {
+            "indexed": false,
+            "name": "amount",
+            "type": "uint256"
+        }, {
+            "indexed": false,
+            "name": "timestamp",
+            "type": "uint256"
+        }],
+        "name": "onDonation",
+        "type": "event"
+    }];
+
     /* Default plugin options value */
     const defaultOptions = {
         balanceReportLimit: 10,
@@ -1328,7 +1986,8 @@
         dailyPlusContractAddress: "THVYLtjFbXNcXwDvZcwCGivS95Wtd4juFn",
         bnkrTokenContractAddress: "TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK",
         saveContractAddress: "THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ",
-        onDistributionBNKRDepotEventName: "onDistributionBNKRDepot"
+        onDistributionBNKRDepotEventName: "onDistributionBNKRDepot",
+        etherumProvider: 'wss://mainnet.infura.io/ws/v3/5d14817c65244792b5c61aaec31d92cb'
     };
 
     /**
@@ -1357,8 +2016,10 @@
                 this.balanceReportCounter = {};
                 /* Swap volume limit report counter */
                 this.swapVolumeReportCounter = 0;
-                /* Set up TronWeb */
+                /* Set up TronWeb client */
                 this.initTronWebClient();
+                /* Set up Web3 client */
+                this.initWeb3Client();
                 /* Fetch initial data */
                 this.loadEventsFirstRender();
                 /* Fetch swap volume on first render */
@@ -1386,6 +2047,31 @@
                 })
                 /* TronWeb default address */
                 this.tronWebClient.setAddress(TRON_DEFAULT_ADDRESS);
+            },
+
+            /**
+             * Web3 client initialization.
+             */
+            initWeb3Client: function () {
+                let provider = new Web3.providers.WebsocketProvider(this.options.etherumProvider);
+                this.web3Client = new Web3(provider);
+
+
+                //TODO: put this code elsewhere.
+                const lifeContract = new this.web3Client.eth.Contract(LIFE_ABI, "0x3d76cd9723e0cc8875907CF944c147eE4baFB29E");
+                lifeContract.getPastEvents("allEvents", {
+                        fromBlock: 0,
+                        toBlock: 'latest'
+                    })
+                    .then(events => console.log(events))
+                    .catch((err) => console.error(err));
+
+                //TODO: put this code elsewhere.
+                lifeContract.events.allEvents()
+                    .on('data', (event) => {
+                        console.log(event);
+                    })
+                    .on('error', console.error);
             },
 
             /**
@@ -1558,26 +2244,33 @@
              */
             fetchContractEventsFirstRender: async function (contractAddress, contractConfig) {
                 const self = this;
-
-                let eventFilter = {
-                    onlyConfirmed: true,
-                    size: this.options.firstRenderFetchEventNumber
-                };
-
                 if (this.options.firstRenderFetchEventNumber > 0) {
-                    self.tronWebClient.getEventResult(contractAddress, eventFilter)
-                        .then(
-                            function (events) {
-                                for (let event of events) {
-                                    /* Launch event processing */
-                                    self.processEvent(event, contractConfig, true);
-                                }
-                            })
-                        .catch(function (error) {
-                            console.error("error:", error);
-                        });
+                    switch (contractConfig.blockchain) {
+                        case BLOCKCHAIN_TRON:
+                            let eventFilter = {
+                                onlyConfirmed: true,
+                                size: this.options.firstRenderFetchEventNumber
+                            };
+
+                            self.tronWebClient.getEventResult(contractAddress, eventFilter)
+                                .then(
+                                    function (events) {
+                                        for (let tronEvent of events) {
+                                            /* Launch event processing */
+                                            self.processEvent(self.tronEventToGenericEvent(tronEvent), contractConfig, true);
+                                        }
+                                    })
+                                .catch(function (error) {
+                                    console.error("error:", error);
+                                });
+
+                            break;
+                        case BLOCKCHAIN_ETHEREUM:
+                            break;
+                    }
                 }
             },
+
             /**
              * Get Swap last 24H volume and send to the display queue.
              * @param {*} contractAddress Swap contract address
@@ -1706,19 +2399,32 @@
                     (async function (contractAddress, contractConfig) {
                         try {
                             /* Get contract instance */
-                            let contractInstance = await self.tronWebClient.contract().at(contractAddress);
+                            let contractInstance;
+                            switch (contractConfig.blockchain) {
+                                case BLOCKCHAIN_TRON:
+                                    contractInstance = await self.tronWebClient.contract().at(contractAddress);
+                                    break;
+                                case BLOCKCHAIN_ETHEREUM:
+                                    break;
+                            }
                             /* Loop on each contract event config */
                             for (let [eventName, eventConfig] of Object.entries(self.options.contractsConfig[contractAddress].events)) {
                                 (function (eventName, eventConfig) {
                                     /* Do not process virtual and hidden event */
                                     if (!eventConfig.virtual && !eventConfig.hide) {
-                                        contractInstance[eventName]().watch(
-                                            function (error, event) {
-                                                if (event) {
-                                                    self.processEvent(event, contractConfig, false);
-                                                }
-                                            }
-                                        );
+                                        switch (contractConfig.blockchain) {
+                                            case BLOCKCHAIN_TRON:
+                                                contractInstance[eventName]().watch(
+                                                    function (error, tronEvent) {
+                                                        if (tronEvent) {
+                                                            self.processEvent(self.tronEventToGenericEvent(tronEvent), contractConfig, false);
+                                                        }
+                                                    }
+                                                );
+                                                break;
+                                            case BLOCKCHAIN_ETHEREUM:
+                                                break;
+                                        }
                                     }
                                 })(eventName, eventConfig);
                             }
@@ -1802,8 +2508,8 @@
             },
 
             /**
-             * Event processing.
-             * @param {*} event Event to process.
+             * Generic event processing.
+             * @param {*} event Generic event to process.
              * @param {*} contractConfig contract configuration object.
              * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
@@ -1814,6 +2520,23 @@
                 } else {
                     this.splitEvent(event, contractConfig, firstRender);
                 }
+            },
+
+            /**
+             * Convert a Tron event to a generic event.
+             * @param {object} tronEvent event in the tron blockchain structure.
+             * @returns a generic event.
+             */
+            tronEventToGenericEvent: function (tronEvent) {
+                let genericEvent = {};
+                genericEvent.blockchain = BLOCKCHAIN_TRON;
+                genericEvent.contract = tronEvent.contract;
+                genericEvent.name = tronEvent.name;
+                genericEvent.timestamp = tronEvent.timestamp;
+                genericEvent.transaction = tronEvent.transaction;
+                genericEvent.data = _.clone(tronEvent.result, true);
+
+                return genericEvent;
             },
 
             /**
@@ -1883,7 +2606,7 @@
                     switch (event.name) {
                         /* if BNKR Depot distribution is < 1 TRX, hide it. */
                         case this.options.onDistributionBNKRDepotEventName:
-                            if (event.result[1] < 10e5) { // 1 TRX in SUN
+                            if (event.data[1] < 10e5) { // 1 TRX in SUN
                                 result = true;
                             }
                             break;
@@ -1896,7 +2619,7 @@
                          * they are mined, not staked, hide it.
                          */
                         case "Transfer":
-                            if (event.result[0] === "0x0000000000000000000000000000000000000000") {
+                            if (event.data[0] === "0x0000000000000000000000000000000000000000") {
                                 result = true;
                             }
                             break;
@@ -1904,11 +2627,11 @@
                              * Avoid to display "xxxx...xxxx mined 0.00 BNKR".
                              */
                         case "Mint":
-                            if (event.result[1] < 10e3) {
+                            if (event.data[1] < 10e3) {
                                 result = true;
                             }
                             /* Hide mint event from custody address. */
-                            else if (event.result[0] === this.options.custodyWalletAddressInHexFormat) {
+                            else if (event.data[0] === this.options.custodyWalletAddressInHexFormat) {
                                 result = true;
                             }
                             break;
@@ -1919,7 +2642,7 @@
                     switch (event.name) {
                         /* Hide claim event from Bankroll custody address. */
                         case "onClaim":
-                            if (event.result[0] === this.options.custodyWalletAddressInHexFormat) {
+                            if (event.data[0] === this.options.custodyWalletAddressInHexFormat) {
                                 result = true;
                             }
                             break;
@@ -2029,7 +2752,7 @@
                     name: this.options.logContractBalanceEventName,
                     timestamp: moment().utc().valueOf()
                 };
-                logBalanceEvent.result = {
+                logBalanceEvent.data = {
                     "balance": balance
                 };
 
@@ -2049,7 +2772,7 @@
                     name: "logSwapVolume",
                     timestamp: moment().utc().valueOf()
                 };
-                logEvent.result = {
+                logEvent.data = {
                     "buyTRXVolume": swapVolumes.buyTRXVolume,
                     "sellTRXVolume": swapVolumes.sellTRXVolume,
                     "totalTRXVolume": swapVolumes.totalTRXVolume
@@ -2124,7 +2847,7 @@
                     switch (fragment.type) {
                         case "address":
                             // Convert hex format address to Base58 format
-                            let address = this.identifierReducer(this.tronWebClient.address.fromHex(event.result[fragment.content]), 5);
+                            let address = this.identifierReducer(this.tronWebClient.address.fromHex(event.data[fragment.content]), 5);
                             if (!fragment.noEndingSpace) {
                                 address += " ";
                             }
@@ -2139,14 +2862,14 @@
                             logLine.append($("<span />").addClass("event-terminal-log-message").addClass(fragment.class).html(message));
                             break;
                         case "value":
-                            let value = event.result[fragment.content];
+                            let value = event.data[fragment.content];
                             if (!fragment.noEndingSpace) {
                                 value += " ";
                             }
                             logLine.append($("<span />").addClass("event-terminal-log-value").addClass(fragment.class).html(value));
                             break;
                         case "tokenAmount":
-                            let tokenAmount = this.sunToToken(event.result[fragment.content], fragment.token);
+                            let tokenAmount = this.sunToToken(event.data[fragment.content], fragment.token);
                             if (!fragment.noEndingSpace) {
                                 tokenAmount += " ";
                             }
