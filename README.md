@@ -20,6 +20,7 @@ Bankroll logs is a jquery plugin that display bankroll network smart contract ev
 | numeral   | 2.0.6           |
 | particles | 2.0.0           |
 | tronweb   | 2.10.1          |
+| web3      | 1.2.9           |
 
 ```
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -30,7 +31,9 @@ Bankroll logs is a jquery plugin that display bankroll network smart contract ev
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tronweb@2.10.1/dist/TronWeb.js" integrity="sha256-yTGcZoX5gMrnHm+NWm4l0Zh3pIr0Nlth+EOXNnmEVFI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.9/dist/web3.min.js" integrity="sha256-7yIjqNLXjq9sxL+oWN8i5fNC9k8/VX6gxRKNWRo6gfo=" crossorigin="anonymous"></script>
 ```
+
 > If you don't want to use the particle effect, you can remove the `particles.min.js` dependency and set the `particles` plugin option to `false`.
 
 #### Load the plugin
@@ -87,6 +90,8 @@ Give an height property to the container div element.
 | bnkrTokenContractAddress       | String  | TNo59Khpq46FGf4sD7XSWYFNfYfbc8CqNK             | BNKR token contract address |
 | saveContractAddress       | String  | THjY7rDKfjMiyCFMoCMCXdQAtRakD21RZQ             | Save contract address |
 | onDistributionBNKRDepotEventName       | String  | onDistributionBNKRDepot             | onDistributionBNKRDepot virtual event name |
+| etherumProvider       | String  | wss://mainnet.infura.io/ws/v3/<project-id>             | Web socket provider to access ethereum blockchain |
+
 
 
 ### Example :
@@ -95,7 +100,7 @@ Give an height property to the container div element.
 <script>$("#logs-with-particles").bankroll_logs({balanceReportLimit:5, particles:false});</script>
 ```
 
-## Contracts information
+## Tron blockchain contracts information
 
 ### Boost contract information
 
@@ -305,6 +310,34 @@ Give an height property to the container div element.
 | onBalance            | Contract balance       | Yes    |
 | onDonation           |                        | Yes    |
 | OwnershipTransferred | Transferred ownership  | Yes    |
+
+
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
+## Ethereum blockchain contracts information
+
+### Life contract information
+
+* EtherScan page : https://etherscan.io/address/0x3d76cd9723e0cc8875907cf944c147ee4bafb29e#code
+
+#### Contract Events
+
+| Event name           | Action                 | Hidden |
+| ---------------------| ---------------------- | ------ |
+| onLeaderBoard        |                        | Yes    |
+| onTokenPurchase      | Buy                    |        |
+| onTokenSell          | Sell                   |        |
+| onReinvestment       | Roll                   | Yes    |
+| onWithdraw           | Withdraw               |        |
+| onClaim              | Claim BNKR dividends   |        |
+| onTransfer           | Transfer fund          |        |
+| onBuyBack            | Contract buy back BNKR |        |
+| onBalance            | Contract balance       | Yes    |
+| onDonation           |                        | Yes    |
 
 
 #### Specific virtual events
