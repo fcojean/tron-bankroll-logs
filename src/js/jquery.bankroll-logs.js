@@ -1321,653 +1321,843 @@
                     ]
                 }
             }
+        },
+
+        "0x3d76cd9723e0cc8875907CF944c147eE4baFB29E": {
+            "blockchain": "ethereum",
+            "name": "Life",
+            "balance": {
+                "show": true,
+                "token": "ETH"
+            },
+            "abi": [{
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "dividendsOf",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "claimsOf",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "swapCollector_",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_ethToSpend",
+                    "type": "uint256"
+                }],
+                "name": "calculateTokensReceived",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "pure",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "statsOf",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256[16]"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "totalSupply",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "myDividends",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "withdraw",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "totalClaims",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "sellPrice",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "pure",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "claim",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "totalTxs",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "totalEthBalance",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "buyFor",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "balanceOf",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "distributionInterval",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "myClaims",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "totalDeposits",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "swapAddress",
+                "outputs": [{
+                    "name": "",
+                    "type": "address"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "buyPrice",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "pure",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_tokensToSell",
+                    "type": "uint256"
+                }],
+                "name": "calculateethReceived",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "myTokens",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "tokenAddress",
+                "outputs": [{
+                    "name": "",
+                    "type": "address"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "buy",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_toAddress",
+                    "type": "address"
+                }, {
+                    "name": "_amountOfTokens",
+                    "type": "uint256"
+                }],
+                "name": "transfer",
+                "outputs": [{
+                    "name": "",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "swapBalance_",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "dailyClaimEstimate",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "depotFlushSize",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "lastPayout",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "dividendBalance_",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "players",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_amountOfTokens",
+                    "type": "uint256"
+                }],
+                "name": "sell",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "donatePool",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "tokenBalance",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "_customerAddress",
+                    "type": "address"
+                }],
+                "name": "dailyEstimate",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "balanceInterval",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "reinvest",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }, {
+                "inputs": [{
+                    "name": "_tokenAddress",
+                    "type": "address"
+                }, {
+                    "name": "_swapAddress",
+                    "type": "address"
+                }],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            }, {
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "fallback"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "invested",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "tokens",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "soldTokens",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "claims",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onLeaderBoard",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "incomingeth",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "tokensMinted",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onTokenPurchase",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "tokensBurned",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "ethEarned",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onTokenSell",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "ethReinvested",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "tokensMinted",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onReinvestment",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "ethWithdrawn",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onWithdraw",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "customerAddress",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "tokens",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onClaim",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "from",
+                    "type": "address"
+                }, {
+                    "indexed": true,
+                    "name": "to",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "tokens",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onTransfer",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": false,
+                    "name": "ethAmount",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "tokenAmount",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onBuyBack",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": false,
+                    "name": "balance",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onBalance",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "from",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "amount",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "timestamp",
+                    "type": "uint256"
+                }],
+                "name": "onDonation",
+                "type": "event"
+            }],
+            "events": {
+                "onLeaderBoard": {
+                    "hide": true
+                },
+                "onTokenPurchase": {
+                    "action": {
+                        "name": "BUY",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "bought"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "incomingeth",
+                            "class": "token-amount-buy",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTokenSell": {
+                    "action": {
+                        "name": "SELL",
+                        "class": "action-sell"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "sold"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "tokensBurned",
+                            "class": "token-amount-sell",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onReinvestment": {
+                    "hide": true
+                },
+                "onWithdraw": {
+                    "action": {
+                        "name": "WITHDRAW",
+                        "class": "action-withdraw"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "withdrew"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "ethWithdrawn",
+                            "class": "token-amount-withdraw",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onClaim": {
+                    "action": {
+                        "name": "CLAIM",
+                        "class": "action-claim"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "customerAddress"
+                        },
+                        {
+                            "type": "string",
+                            "content": "claimed"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "VLT",
+                            "content": "tokens",
+                            "class": "token-amount-claim",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onTransfer": {
+                    "action": {
+                        "name": "TRANSFER",
+                        "class": "action-transfer"
+                    },
+                    "messageFragments": [{
+                            "type": "address",
+                            "content": "from"
+                        },
+                        {
+                            "type": "string",
+                            "content": "transferred"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "tokens",
+                            "class": "token-amount-transfer"
+                        },
+                        {
+                            "type": "string",
+                            "content": "to"
+                        },
+                        {
+                            "type": "address",
+                            "content": "to",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onBuyBack": {
+                    "action": {
+                        "name": "BUY BACK",
+                        "class": "action-buy"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "Contract bought back"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "VLT",
+                            "content": "tokenAmount",
+                            "class": "token-amount-buy"
+                        },
+                        {
+                            "type": "string",
+                            "content": "for"
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "ethAmount",
+                            "noEndingSpace": true
+                        }
+                    ]
+                },
+                "onBalance": {
+                    "hide": true
+                },
+                "onDonation": {
+                    "hide": true
+                },
+                "logContractBalance": {
+                    "virtual": true,
+                    "action": {
+                        "name": "BALANCE",
+                        "class": "action-balance"
+                    },
+                    "messageFragments": [{
+                            "type": "string",
+                            "content": "There is "
+                        },
+                        {
+                            "type": "tokenAmount",
+                            "token": "ETH",
+                            "content": "balance",
+                            "class": "token-amount-balance"
+                        },
+                        {
+                            "type": "string",
+                            "content": "in the contract",
+                            "noEndingSpace": true
+                        }
+                    ]
+                }
+            }
         }
     };
-
-    const LIFE_ABI = [{
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "dividendsOf",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "claimsOf",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "swapCollector_",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_ethToSpend",
-            "type": "uint256"
-        }],
-        "name": "calculateTokensReceived",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "pure",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "statsOf",
-        "outputs": [{
-            "name": "",
-            "type": "uint256[16]"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "totalSupply",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "myDividends",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "totalClaims",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "sellPrice",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "pure",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [],
-        "name": "claim",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "totalTxs",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "totalEthBalance",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "buyFor",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "balanceOf",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "distributionInterval",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "myClaims",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "totalDeposits",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "swapAddress",
-        "outputs": [{
-            "name": "",
-            "type": "address"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "buyPrice",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "pure",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_tokensToSell",
-            "type": "uint256"
-        }],
-        "name": "calculateethReceived",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "myTokens",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "tokenAddress",
-        "outputs": [{
-            "name": "",
-            "type": "address"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [],
-        "name": "buy",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [{
-            "name": "_toAddress",
-            "type": "address"
-        }, {
-            "name": "_amountOfTokens",
-            "type": "uint256"
-        }],
-        "name": "transfer",
-        "outputs": [{
-            "name": "",
-            "type": "bool"
-        }],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "swapBalance_",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "dailyClaimEstimate",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "depotFlushSize",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "lastPayout",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "dividendBalance_",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "players",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [{
-            "name": "_amountOfTokens",
-            "type": "uint256"
-        }],
-        "name": "sell",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [],
-        "name": "donatePool",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "tokenBalance",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [{
-            "name": "_customerAddress",
-            "type": "address"
-        }],
-        "name": "dailyEstimate",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": true,
-        "inputs": [],
-        "name": "balanceInterval",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    }, {
-        "constant": false,
-        "inputs": [],
-        "name": "reinvest",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }, {
-        "inputs": [{
-            "name": "_tokenAddress",
-            "type": "address"
-        }, {
-            "name": "_swapAddress",
-            "type": "address"
-        }],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    }, {
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "fallback"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "invested",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "tokens",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "soldTokens",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "claims",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onLeaderBoard",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "incomingeth",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "tokensMinted",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onTokenPurchase",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "tokensBurned",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "ethEarned",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onTokenSell",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "ethReinvested",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "tokensMinted",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onReinvestment",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "ethWithdrawn",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onWithdraw",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "customerAddress",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "tokens",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onClaim",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "from",
-            "type": "address"
-        }, {
-            "indexed": true,
-            "name": "to",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "tokens",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onTransfer",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": false,
-            "name": "ethAmount",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "tokenAmount",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onBuyBack",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": false,
-            "name": "balance",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onBalance",
-        "type": "event"
-    }, {
-        "anonymous": false,
-        "inputs": [{
-            "indexed": true,
-            "name": "from",
-            "type": "address"
-        }, {
-            "indexed": false,
-            "name": "amount",
-            "type": "uint256"
-        }, {
-            "indexed": false,
-            "name": "timestamp",
-            "type": "uint256"
-        }],
-        "name": "onDonation",
-        "type": "event"
-    }];
 
     /* Default plugin options value */
     const defaultOptions = {
@@ -2052,26 +2242,9 @@
             /**
              * Web3 client initialization.
              */
-            initWeb3Client: function () {
+            initWeb3Client: async function () {
                 let provider = new Web3.providers.WebsocketProvider(this.options.etherumProvider);
                 this.web3Client = new Web3(provider);
-
-
-                //TODO: put this code elsewhere.
-                const lifeContract = new this.web3Client.eth.Contract(LIFE_ABI, "0x3d76cd9723e0cc8875907CF944c147eE4baFB29E");
-                lifeContract.getPastEvents("allEvents", {
-                        fromBlock: 0,
-                        toBlock: 'latest'
-                    })
-                    .then(events => console.log(events))
-                    .catch((err) => console.error(err));
-
-                //TODO: put this code elsewhere.
-                lifeContract.events.allEvents()
-                    .on('data', (event) => {
-                        console.log(event);
-                    })
-                    .on('error', console.error);
             },
 
             /**
@@ -2266,6 +2439,24 @@
 
                             break;
                         case BLOCKCHAIN_ETHEREUM:
+                            const ethereumContract = new this.web3Client.eth.Contract(contractConfig.abi, contractAddress);
+                            const currentBlockNumber = await this.web3Client.eth.getBlockNumber();
+                            ethereumContract.getPastEvents("allEvents", {
+                                    fromBlock: currentBlockNumber - 3000,
+                                    toBlock: 'latest'
+                                })
+                                .then(
+                                    function (events) {
+                                        /* Keep the 3 latest events */
+                                        for (let i = 1; i <= self.options.firstRenderFetchEventNumber; i++) {
+                                            let eventIndex = events.length - i;
+                                            /* Launch event processing */
+                                            self.processEvent(self.ethereumEventToGenericEvent(events[eventIndex]), contractConfig, true);
+                                        }
+                                    })
+                                .catch(function (error) {
+                                    console.error("error:", error);
+                                });
                             break;
                     }
                 }
@@ -2405,6 +2596,7 @@
                                     contractInstance = await self.tronWebClient.contract().at(contractAddress);
                                     break;
                                 case BLOCKCHAIN_ETHEREUM:
+                                    contractInstance = new self.web3Client.eth.Contract(contractConfig.abi, contractAddress);
                                     break;
                             }
                             /* Loop on each contract event config */
@@ -2423,6 +2615,12 @@
                                                 );
                                                 break;
                                             case BLOCKCHAIN_ETHEREUM:
+                                                contractInstance.events[eventName]()
+                                                    .on('data', (ethereumEvent) => {
+                                                        if (ethereumEvent) {
+                                                            self.processEvent(self.ethereumEventToGenericEvent(ethereumEvent), contractConfig, false);
+                                                        }
+                                                    });
                                                 break;
                                         }
                                     }
@@ -2445,22 +2643,42 @@
                 if (contractConfig.balance.show) {
                     /* Contract which need to call a specific method to get the balance */
                     let balance;
+                    let blockchain;
                     if (contractConfig.balance.method) {
-                        /* Get contract instance */
-                        let contractInstance = await this.tronWebClient.contract().at(contractAddress);
-                        balance = await contractInstance[contractConfig.balance.method]().call();
+                        switch (contractConfig.blockchain) {
+                            case BLOCKCHAIN_TRON:
+                                /* Get contract instance */
+                                let contractInstance = await this.tronWebClient.contract().at(contractAddress);
+                                balance = await contractInstance[contractConfig.balance.method]().call();
+                                blockchain = BLOCKCHAIN_TRON;
+                                break;
+                            case BLOCKCHAIN_ETHEREUM:
+                                /* Not implemented yet */
+                                blockchain = BLOCKCHAIN_ETHEREUM;
+                                balance = 0;
+                                break;
+                        }
                         if (balance) {
                             /* Generate and add event to Queue */
-                            let event = this.generateLogBalanceEvent(balance, contractAddress);
+                            let event = this.generateLogBalanceEvent(blockchain, balance, contractAddress);
                             this.addEventToDisplayQueue(event, false);
                         }
                     }
                     /* Contract that use the generic TRX contract balance */
                     else {
-                        balance = await this.tronWebClient.trx.getBalance(contractAddress);
+                        switch (contractConfig.blockchain) {
+                            case BLOCKCHAIN_TRON:
+                                balance = await this.tronWebClient.trx.getBalance(contractAddress);
+                                blockchain = BLOCKCHAIN_TRON;
+                                break;
+                            case BLOCKCHAIN_ETHEREUM:
+                                balance = await this.web3Client.eth.getBalance(contractAddress);
+                                blockchain = BLOCKCHAIN_ETHEREUM;
+                                break;
+                        }
                         if (balance) {
                             /* Generate and add event to Queue */
-                            let event = this.generateLogBalanceEvent(balance, contractAddress);
+                            let event = this.generateLogBalanceEvent(blockchain, balance, contractAddress);
                             this.addEventToDisplayQueue(event, false);
                         }
                     }
@@ -2535,6 +2753,23 @@
                 genericEvent.timestamp = tronEvent.timestamp;
                 genericEvent.transaction = tronEvent.transaction;
                 genericEvent.data = _.clone(tronEvent.result, true);
+
+                return genericEvent;
+            },
+
+            /**
+             * Convert a Tron event to a generic event.
+             * @param {object} tronEvent event in the tron blockchain structure.
+             * @returns a generic event.
+             */
+            ethereumEventToGenericEvent: function (ethereumEvent) {
+                let genericEvent = {};
+                genericEvent.blockchain = BLOCKCHAIN_ETHEREUM;
+                genericEvent.contract = ethereumEvent.address;
+                genericEvent.name = ethereumEvent.event;
+                genericEvent.timestamp = ethereumEvent.returnValues["timestamp"] + "000";
+                genericEvent.transaction = ethereumEvent.transactionHash;
+                genericEvent.data = _.clone(ethereumEvent.returnValues, true);
 
                 return genericEvent;
             },
@@ -2746,8 +2981,9 @@
              * @param {*} balance contract balance.
              * @param {*} contractAddress contract address.
              */
-            generateLogBalanceEvent: function (balance, contractAddress) {
+            generateLogBalanceEvent: function (blockchain, balance, contractAddress) {
                 let logBalanceEvent = {
+                    blockchain: blockchain,
                     contract: contractAddress,
                     name: this.options.logContractBalanceEventName,
                     timestamp: moment().utc().valueOf()
@@ -2800,6 +3036,34 @@
                 return log;
             },
 
+            getTransactionHrefBase: function (blockchain) {
+                let hrefBase;
+                switch (blockchain) {
+                    case BLOCKCHAIN_TRON:
+                        hrefBase = "https://tronscan.org/#/transaction/";
+                        break;
+                    case BLOCKCHAIN_ETHEREUM:
+                        hrefBase = "https://etherscan.io/tx/";
+                        break;
+                }
+
+                return hrefBase;
+            },
+
+            getContractHrefBase: function (blockchain) {
+                let hrefBase;
+                switch (blockchain) {
+                    case BLOCKCHAIN_TRON:
+                        hrefBase = "https://tronscan.org/#/contract/";
+                        break;
+                    case BLOCKCHAIN_ETHEREUM:
+                        hrefBase = "https://etherscan.io/address/";
+                        break;
+                }
+
+                return hrefBase;
+            },
+
             /**
              * Build the body of a log object (log line and command line). 
              * @param {*} logLine Parent div log container.
@@ -2813,14 +3077,14 @@
                 if (event.transaction) {
                     let link = $("<a />", {
                         target: "_blank",
-                        href: "https://tronscan.org/#/transaction/" + event.transaction
+                        href: this.getTransactionHrefBase(event.blockchain) + event.transaction
                     });
                     link.append($("<span />").html("[" + this.identifierReducer(event.transaction, 6) + "]"));
                     logLine.append($(link).addClass("event-terminal-tronscan-link"));
                 } else {
                     let link = $("<a />", {
                         target: "_blank",
-                        href: "https://tronscan.org/#/contract/" + event.contract
+                        href: this.getContractHrefBase(event.blockchain) + event.contract
                     });
                     link.append($("<span />").html("[" + this.identifierReducer(event.contract, 6) + "]"));
                     logLine.append($(link).addClass("event-terminal-tronscan-link"));
@@ -2869,7 +3133,7 @@
                             logLine.append($("<span />").addClass("event-terminal-log-value").addClass(fragment.class).html(value));
                             break;
                         case "tokenAmount":
-                            let tokenAmount = this.sunToToken(event.data[fragment.content], fragment.token);
+                            let tokenAmount = this.formatTokenAmount(event.data[fragment.content], fragment.token, event.blockchain);
                             if (!fragment.noEndingSpace) {
                                 tokenAmount += " ";
                             }
@@ -2886,7 +3150,7 @@
                 logLine.append($("<span />").addClass("event-terminal-log-message").html(". "));
 
                 // Date
-                let date = moment(event.timestamp).fromNow();
+                let date = moment(Number(event.timestamp)).fromNow();
                 logLine.append($("<span />").addClass("event-terminal-log-date").html("(" + date + ") "));
                 logLine.append($("<span />").addClass("event-terminal-log-timestamp").html(event.timestamp));
 
@@ -2894,15 +3158,18 @@
             },
 
             /**
-             * Convert SUN to TOKEN value.
-             * @param {*} sunAmount 
-             * @param {*} token 
+             * Format a token amount in a human readable string.
+             * @param {number} amount 
+             * @param {string} token
+             * @param {string} blockchain 
              */
-            sunToToken: function (sunAmount, token) {
+            formatTokenAmount: function (amount, token, blockchain) {
                 if (token.toUpperCase() === "SUN") {
-                    return numeral(sunAmount).format("0,0") + " " + token;
+                    return numeral(amount).format("0,0") + " " + token;
+                } else if (blockchain === BLOCKCHAIN_ETHEREUM) {
+                    return numeral(amount).divide(10e17).format("0,0.00") + " " + token;
                 } else {
-                    return numeral(sunAmount).divide(10e5).format("0,0.00") + " " + token;
+                    return numeral(amount).divide(10e5).format("0,0.00") + " " + token;
                 }
             },
 

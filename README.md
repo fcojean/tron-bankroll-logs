@@ -100,7 +100,7 @@ Give an height property to the container div element.
 <script>$("#logs-with-particles").bankroll_logs({balanceReportLimit:5, particles:false});</script>
 ```
 
-## Contracts information
+## Tron blockchain contracts information
 
 ### Boost contract information
 
@@ -310,6 +310,34 @@ Give an height property to the container div element.
 | onBalance            | Contract balance       | Yes    |
 | onDonation           |                        | Yes    |
 | OwnershipTransferred | Transferred ownership  | Yes    |
+
+
+#### Specific virtual events
+
+| Event name         | Action                                        |
+| ------------------ | --------------------------------------------- |
+| logContractBalance | Log contract balance                          |
+
+## Ethereum blockchain contracts information
+
+### Life contract information
+
+* EtherScan page : https://etherscan.io/address/0x3d76cd9723e0cc8875907cf944c147ee4bafb29e#code
+
+#### Contract Events
+
+| Event name           | Action                 | Hidden |
+| ---------------------| ---------------------- | ------ |
+| onLeaderBoard        |                        | Yes    |
+| onTokenPurchase      | Buy                    |        |
+| onTokenSell          | Sell                   |        |
+| onReinvestment       | Roll                   | Yes    |
+| onWithdraw           | Withdraw               |        |
+| onClaim              | Claim BNKR dividends   |        |
+| onTransfer           | Transfer fund          |        |
+| onBuyBack            | Contract buy back BNKR |        |
+| onBalance            | Contract balance       | Yes    |
+| onDonation           |                        | Yes    |
 
 
 #### Specific virtual events
