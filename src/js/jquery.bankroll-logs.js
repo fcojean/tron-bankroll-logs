@@ -36,9 +36,6 @@
                 "method": "totalSupply"
             },
             "events": {
-                "onLeaderBoard": {
-                    "hide": true
-                },
                 "onTokenPurchase": {
                     "action": {
                         "name": "BUY",
@@ -83,9 +80,6 @@
                         }
                     ]
                 },
-                "onReinvestment": {
-                    "hide": true
-                },
                 "onWithdraw": {
                     "action": {
                         "name": "WITHDRAW",
@@ -108,9 +102,6 @@
                         }
                     ]
                 },
-                "onBalance": {
-                    "hide": true
-                },
                 "onDonation": {
                     "action": {
                         "name": "DONATE",
@@ -132,9 +123,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "OwnershipTransferred": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -213,9 +201,6 @@
                         }
                     ]
                 },
-                "onReinvestment": {
-                    "hide": true
-                },
                 "onWithdraw": {
                     "action": {
                         "name": "WITHDRAW",
@@ -290,9 +275,6 @@
                         }
                     ]
                 },
-                "OwnershipTransferred": {
-                    "hide": true
-                },
                 "logContractBalance": {
                     "virtual": true,
                     "action": {
@@ -326,9 +308,6 @@
                 "token": "TRX"
             },
             "events": {
-                "onLeaderBoard": {
-                    "hide": true
-                },
                 "onTokenPurchase": {
                     "action": {
                         "name": "BUY",
@@ -372,9 +351,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onReinvestment": {
-                    "hide": true
                 },
                 "onWithdraw": {
                     "action": {
@@ -427,9 +403,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onBalance": {
-                    "hide": true
                 },
                 "onDonation": {
                     "action": {
@@ -498,9 +471,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "OwnershipTransferred": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -577,9 +547,6 @@
                         }
                     ]
                 },
-                "OwnershipTransferred": {
-                    "hide": true
-                },
                 "logContractBalance": {
                     "virtual": true,
                     "action": {
@@ -635,15 +602,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "MintFinished": {
-                    "hide": true
-                },
-                "OwnershipTransferred": {
-                    "hide": true
-                },
-                "Approval": {
-                    "hide": true
                 },
                 "Transfer": {
                     "action": {
@@ -761,21 +719,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onBalance": {
-                    "hide": true
-                },
-                "onContractBalance": {
-                    "hide": true
-                },
-                "WhitelistedAddressAdded": {
-                    "hide": true
-                },
-                "WhitelistedAddressRemoved": {
-                    "hide": true
-                },
-                "OwnershipTransferred": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -926,12 +869,6 @@
                         }
                     ]
                 },
-                "onLiquidity": {
-                    "hide": true
-                },
-                "onContractBalance": {
-                    "hide": true
-                },
                 "onPrice": {
                     "action": {
                         "name": "PRICE",
@@ -954,15 +891,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onSummary": {
-                    "hide": true
-                },
-                "Transfer": {
-                    "hide": true
-                },
-                "Approval": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -1017,9 +945,6 @@
                 "method": "totalTokenBalance"
             },
             "events": {
-                "onLeaderBoard": {
-                    "hide": true
-                },
                 "onTokenPurchase": {
                     "action": {
                         "name": "BUY",
@@ -1064,9 +989,6 @@
                         }
                     ]
                 },
-                "onReinvestment": {
-                    "hide": true
-                },
                 "onWithdraw": {
                     "action": {
                         "name": "WITHDRAW",
@@ -1088,21 +1010,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onClaim": {
-                    "hide": true
-                },
-                "onTransfer": {
-                    "hide": true
-                },
-                "onBuyBack": {
-                    "hide": true
-                },
-                "onBalance": {
-                    "hide": true
-                },
-                "onDonation": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -1137,9 +1044,6 @@
                 "token": "TRX"
             },
             "events": {
-                "onLeaderBoard": {
-                    "hide": true
-                },
                 "onTokenPurchase": {
                     "action": {
                         "name": "BUY",
@@ -1183,9 +1087,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onReinvestment": {
-                    "hide": true
                 },
                 "onWithdraw": {
                     "action": {
@@ -1287,15 +1188,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onBalance": {
-                    "hide": true
-                },
-                "onDonation": {
-                    "hide": true
-                },
-                "OwnershipTransferred": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -1975,9 +1867,6 @@
                 "type": "event"
             }],
             "events": {
-                "onLeaderBoard": {
-                    "hide": true
-                },
                 "onTokenPurchase": {
                     "action": {
                         "name": "BUY",
@@ -2021,9 +1910,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onReinvestment": {
-                    "hide": true
                 },
                 "onWithdraw": {
                     "action": {
@@ -2125,12 +2011,6 @@
                             "noEndingSpace": true
                         }
                     ]
-                },
-                "onBalance": {
-                    "hide": true
-                },
-                "onDonation": {
-                    "hide": true
                 },
                 "logContractBalance": {
                     "virtual": true,
@@ -2602,8 +2482,8 @@
                             /* Loop on each contract event config */
                             for (let [eventName, eventConfig] of Object.entries(self.options.contractsConfig[contractAddress].events)) {
                                 (function (eventName, eventConfig) {
-                                    /* Do not process virtual and hidden event */
-                                    if (!eventConfig.virtual && !eventConfig.hide) {
+                                    /* Do not process virtual */
+                                    if (!eventConfig.virtual) {
                                         switch (contractConfig.blockchain) {
                                             case BLOCKCHAIN_TRON:
                                                 contractInstance[eventName]().watch(
@@ -2705,22 +2585,19 @@
              * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
             addEventToDisplayQueue: async function (event, firstRender) {
-                /* Mute events that we don't want to display by contract configuration */
-                if (!this.hideEvent(event)) {
-                    /* Mute event on specific business rules */
-                    if (!this.hideEventOnBusinessRules(event)) {
-                        let log = this.eventToLog(event);
-                        if (log) {
-                            this.logDisplayQueue.push(log);
-                            /* Increment counter to display first render events without display effect. */
-                            if (firstRender) {
-                                this.displayWithoutEffectMaxEntry++;
-                            }
-                            /* Show contract balance if needed */
-                            await this.showContractBalance(event, firstRender);
-                            /* Show Swap contract volume if needed */
-                            await this.showSwapVolume(event, firstRender);
+                /* Mute event on specific business rules */
+                if (!this.hideEventOnBusinessRules(event)) {
+                    let log = this.eventToLog(event);
+                    if (log) {
+                        this.logDisplayQueue.push(log);
+                        /* Increment counter to display first render events without display effect. */
+                        if (firstRender) {
+                            this.displayWithoutEffectMaxEntry++;
                         }
+                        /* Show contract balance if needed */
+                        await this.showContractBalance(event, firstRender);
+                        /* Show Swap contract volume if needed */
+                        await this.showSwapVolume(event, firstRender);
                     }
                 }
             },
@@ -2732,11 +2609,14 @@
              * @param {*} firstRender flag indicating that it is the  first render display phase.
              */
             processEvent: function (event, contractConfig, firstRender) {
-                /* Split event into virtuals ones if needed */
-                if (!this.mustSplitEvent(event)) {
-                    this.addEventToDisplayQueue(event, firstRender);
-                } else {
-                    this.splitEvent(event, contractConfig, firstRender);
+                /* Check if the events need to be processed */
+                if (contractConfig.events[event.name]) {
+                    /* Split event into virtuals ones if needed */
+                    if (!this.mustSplitEvent(event)) {
+                        this.addEventToDisplayQueue(event, firstRender);
+                    } else {
+                        this.splitEvent(event, contractConfig, firstRender);
+                    }
                 }
             },
 
@@ -2817,16 +2697,6 @@
                     eventClone.name = splitEventName;
                     this.addEventToDisplayQueue(eventClone, firstRender);
                 }
-            },
-
-            /**
-             * Return true if an events has a "hide" attribute equal to true in contract
-             * configuration. This event will be hidden.
-             *  
-             * @param {*} event An event.
-             */
-            hideEvent: function (event) {
-                return this.options.contractsConfig[event.contract].events[event.name].hide;
             },
 
             /**
